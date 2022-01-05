@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leech Calculator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="imgs/meso.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-42680TYBBV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-42680TYBBV');
+    </script>
+    <script type='text/javascript' src='calcscript.js'></script>
+  </head>
+  <body>
+
+    <div id="maincontainer">
+      <div id="navbarbox">
+        <div id="navbaritems">
+          <div id="mushybox">
+            <a href="https://maplelegends.com" target="_blank"><img id="mushy" src="imgs/mushy.png"><img id="MLlogo" src="imgs/MLmushy.png"></a>
+          </div>
+          <div id="bigtitle">
+            <a href="https://maplelegends.com/ranking/all?search=srslyguys" target="_blank"><img id="srsly" src="imgs/srsly.png"></a><p id="bigtitletext">SrslyGuys' Leech Calculator</p><!--<img id="hungry" src="imgs/hungry.gif">-->
+          </div>
+        </div>
+      </div>
+      <div id="toolbox">
+      <!--<div id="rosterbox">
+          <hr>
+        </div>-->
+        <div id="calculator">
+          <div id="startinfo">
+            <h2>Start</h2>
+            <label for="startlvl">Level</label>
+            <input id="startlvl" type="number"  name="startlvl" min="1" max="200">
+              <label for="startexp">Exp</label>
+              <input id="startexp" type="number" name="startexp"></input>
+              <input id="startpercent" type="checkbox">%</input>
+          </div>
+
+          <div id="endinfo">
+            <h2>Finish</h2>
+            <label for="endlvl">Level</label>
+            <input type="number" id="endlvl" name="endlvl" min="1" max="200">
+              <label for="endexp">Exp</label>
+              <input id="endexp" type="number" name="endexp"></input>
+              <input id="endpercent" type="checkbox">%</input>
+            </div>
+          <br>
+          </div>
+          <div id="ratebox">
+            <h2>Rate</h2>
+            <input id="perexp" type="radio" name="ratetype" value="exp">per exp</input>
+            <input id="perhour" type="radio" name="ratetype" value="hour">per hour</input>
+            <br><br>
+            <div id="rateinputbox">
+              <label for="perexp">1 meso per</label>
+              <input id="rate" name="perexp" type="number" style="width:40px;" min="0"></input> exp
+            </div>
+            <br>
+            <button id="calculateBtn" onclick="calculate()">Calculate</button>
+          </div>
+          <br>
+          <div id="outputbox">
+            <div id="totalcost">
+              <img id="meso" src="imgs/meso.png">
+              <p id="total">____________</p>
+            </div>
+            <p id="expgained"></p>
+            <br>
+            <i><p id="formula">Formula: (((endLvl totalExp - startLvl totalExp) - startExp) + endExp) / rate</p></i>
+          </div>
+          <br>
+        </div>
+        <div id="exptablebox">
+          <p id="exptabletitle">EXPTABLE</p>
+          <input id="searchlvl" onkeyup="filterTable()" placeholder="Search level" type="number"></input>
+          <div id="tablecontainer">
+            <table id="exptable">
+            </table>
+          </div>
+          <source><i>Source: <a id="exptablesrc" target="_blank" href="https://maplelegends.com/lib/exptable">https://maplelegends.com/lib/exptable</a></i></source>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

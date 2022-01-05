@@ -1,0 +1,251 @@
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #ffffff #808080;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #808080;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 3px solid #808080;
+  }
+
+html{
+  font-family: arial, sans-serif;
+  color: white;
+  background-color: #1b1e29;
+}
+
+body{
+    margin: 0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#exptablebox::-webkit-scrollbar{
+
+}
+#mushybox{
+  grid-area: "mushy";
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+#mushy{
+  height: 50px;
+  display: none;
+}
+
+#hungry{
+  height: 50px;
+}
+
+#MLlogo{
+  height: 50px;
+}
+
+#maincontainer{
+  text-align:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#navbarbox{
+  background: rgb(96,108,136); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+  width: 100%;
+  padding: 8px;
+}
+
+#navbaritems{
+  display:grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-areas:
+  " mushy  bigtitle .";
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  padding-left: 10px;
+}
+
+#calculateBtn{
+  background: rgb(96,108,136); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+  color:white;
+  padding: 8px;
+  font-size: 12pt;
+  border: none;
+  border-radius: 8px 8px 8px 8px;
+}
+
+#calculateBtn:hover{
+  cursor: pointer;
+  background: rgb(184,198,223); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(184,198,223,1) 0%, rgba(109,136,183,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(184,198,223,1) 0%,rgba(109,136,183,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(184,198,223,1) 0%,rgba(109,136,183,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8c6df', endColorstr='#6d88b7',GradientType=0 ); /* IE6-9 */
+}
+
+#calculateBtn:active{
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3f4c6b+0,3f4c6b+100;Blue+Grey+Flat */
+  background: rgb(63,76,107); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(63,76,107,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(63,76,107,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+
+}
+
+#bigtitletext{
+  font-size: 20pt;
+  margin: 0;
+}
+
+#bigtitle{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  grid-area: "bigtitle";
+  text-align: center;
+  gap: 5px;
+}
+
+hr{
+  width: 100%;
+}
+
+#outputbox{
+  display:flex;
+  flex-direction: column;
+  border-radius: 10px 10px 10px 10px;
+  width: fit-content;
+  padding-right: 15px;
+  padding-left: 15px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 8pt;
+}
+
+#totalcost{
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: fit-content;
+}
+
+#totalbox{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#total{
+  font-size: 2rem;
+  margin: 5px;
+}
+
+#expgained{
+  margin-top: 0;
+}
+
+#exptabletitle{
+  letter-spacing:  2rem;
+  font-size: 1.4rem;
+  text-align:center;
+  padding-left: 2rem;
+}
+
+#exptablebox{
+  border-radius: 20px 20px 20px 20px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content: center;
+  align-items: center;
+  background-color: gray;
+  text-align: center;
+  gap: 10px;
+  padding:10px;
+}
+
+#tablecontainer{
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  max-height: 60vh;
+  overflow-x:scroll;
+  overflow-x:hidden;
+}
+
+#exptable> th, td{
+  text-align:center;
+  padding: 10px;
+  background-color:#343438;
+  border-radius: 5px 5px 5px 5px;
+  font-size: 1rem;
+  min-width: fit-content;
+}
+
+#exptable{
+  width:95%;
+  table-layout: fixed;
+  margin-bottom: 20px;
+}
+
+#meso{
+  height: 30px;
+}
+
+#exptablesrc{
+  text-decoration: none;
+  color:white;
+}
+
+#exptablesrc:visited{
+  text-decoration: none;
+  color:white;
+}
+
+@media screen and (orientation:portrait) {
+  #mushy{
+    display: flex;
+  }
+
+  #MLlogo{
+    display: none;
+  }
+
+  #srsly{
+    display: none;
+  }
+
+}
