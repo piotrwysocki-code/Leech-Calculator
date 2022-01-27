@@ -1,50 +1,36 @@
-/* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #ffffff #808080;
-  }
-
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 16px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: #808080;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
-    border-radius: 10px;
-    border: 3px solid #808080;
-  }
-
 html{
   font-family: arial, sans-serif;
-  color: white;
-  background-color: #1b1e29;
+  height: 100%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 body{
     margin: 0;
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    color: white;
+    background: rgb(16,23,57);
+    background: linear-gradient(0deg, rgba(16,23,57,1) 0%, rgba(0,0,0,1) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
 
-#exptablebox::-webkit-scrollbar{
-
+#eph, #price{
+  border-radius: 20px 20px 20px 20px;
+  text-align: center;
+  border: 2px solid white;
+  outline: none;
 }
+
 #mushybox{
   grid-area: "mushy";
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: left;
+  width: fit-content;
 }
 
 #mushy{
@@ -69,39 +55,34 @@ body::-webkit-scrollbar {
 }
 
 #navbarbox{
-  background: rgb(96,108,136); /* Old browsers */
-  background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+  background: rgb(0,40,106);
+  background: linear-gradient(0deg, rgba(0,40,106,1) 0%, rgba(0,108,189,1) 100%);
   width: 100%;
   padding: 8px;
 }
 
 #navbaritems{
   display:grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 9fr 1fr;
   grid-template-areas:
   " mushy  bigtitle .";
-  grid-auto-columns: minmax(0, 1fr);
-  grid-auto-flow: column;
   padding-left: 10px;
 }
 
-#calculateBtn{
-  background: rgb(96,108,136); /* Old browsers */
+.delete-log-btn, .delete-record-btn{
+  background-color: rgb(96,108,136); /* Old browsers */
   background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
   color:white;
-  padding: 8px;
   font-size: 12pt;
-  border: none;
-  border-radius: 8px 8px 8px 8px;
+  border: 1px solid gray;
+  border-radius: 20px 20px 20px 20px;
+  margin: 10px;
 }
 
-#calculateBtn:hover{
+.delete-log-btn:hover{
   cursor: pointer;
   background: rgb(184,198,223); /* Old browsers */
   background: -moz-linear-gradient(top,  rgba(184,198,223,1) 0%, rgba(109,136,183,1) 100%); /* FF3.6-15 */
@@ -110,18 +91,51 @@ body::-webkit-scrollbar {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8c6df', endColorstr='#6d88b7',GradientType=0 ); /* IE6-9 */
 }
 
-#calculateBtn:active{
+.delete-log-btn:active{
   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3f4c6b+0,3f4c6b+100;Blue+Grey+Flat */
   background: rgb(63,76,107); /* Old browsers */
   background: -moz-linear-gradient(top,  rgba(63,76,107,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  rgba(63,76,107,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+}
+
+#calculateBtn, .finalize-btn{
+  background: rgb(96,108,136); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+  color:white;
+  padding: 8px;
+  font-size: 12pt;
+  border: 1px solid gray;
+  border-radius: 8px 8px 8px 8px;
 
 }
 
+#calculateBtn:hover, .finalize-btn:hover{
+  cursor: pointer;
+  background: rgb(184,198,223); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(184,198,223,1) 0%, rgba(109,136,183,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(184,198,223,1) 0%,rgba(109,136,183,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(184,198,223,1) 0%,rgba(109,136,183,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b8c6df', endColorstr='#6d88b7',GradientType=0 ); /* IE6-9 */
+}
+
+#calculateBtn:active, .finalize-btn:active{
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3f4c6b+0,3f4c6b+100;Blue+Grey+Flat */
+  background: rgb(63,76,107); /* Old browsers */
+  background: -moz-linear-gradient(top,  rgba(63,76,107,1) 0%, rgba(63,76,107,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  rgba(63,76,107,1) 0%,rgba(63,76,107,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  rgba(63,76,107,1) 0%,rgba(63,76,107,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#3f4c6b',GradientType=0 ); /* IE6-9 */
+}
+
 #bigtitletext{
+  letter-spacing:  .2rem;
   font-size: 20pt;
+  text-align:center;
   margin: 0;
 }
 
@@ -133,10 +147,49 @@ body::-webkit-scrollbar {
   grid-area: "bigtitle";
   text-align: center;
   gap: 5px;
+  width: 100%;
 }
 
 hr{
-  width: 100%;
+
+  color: white;
+  border: 1px solid white;
+}
+
+.expGained{
+  font-size: 14pt;
+}
+
+.mesosTotal{
+  font-size: 16pt;
+}
+
+.totalMesoImg{
+  height: 16px;
+}
+
+.totals{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.history-start{
+  background-color:green;
+  border-radius: 20px 20px 20px 20px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.history-end{
+  background-color:red;
+  border-radius: 20px 20px 20px 20px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#job-img{
+  height: 22px;
 }
 
 #outputbox{
@@ -151,6 +204,277 @@ hr{
   text-align: center;
   font-size: 8pt;
 }
+
+#toolbox{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+  " r  c h";
+  width: 100%;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.record-total{
+  margin: 0;
+}
+
+#roster-box, #history-box, #calculator{
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 20px 20px 20px 20px;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  max-height: 65vh;
+  padding: 10px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#calculator{
+  grid-area: "c";
+}
+
+#roster-box{
+  grid-area: "r";
+}
+
+#history-box{
+  grid-area: "h";
+}
+
+#history-box-header, #roster-box-header{
+  background-color:rgba(148, 148, 148, 0.45);
+  width: 100%;
+  border-radius: 20px 20px 20px 20px;
+  padding: 10px;
+  height: fit-content;
+  box-sizing: border-box;
+  min-width: fit-content;
+}
+
+#roster-box-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#history-record-box, #roster-box-players{
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  scrollbar-width: auto;
+  scrollbar-color: #ffffff #808080;
+  border-radius: 20px 20px 20px 20px;
+  min-width: fit-content;
+}
+
+#history-record-box::-webkit-scrollbar, #roster-box-players::-webkit-scrollbar,
+ #calculator::-webkit-scrollbar  {
+  width: 3px;
+}
+
+#history-record-box::-webkit-scrollbar-track,
+ #roster-box-players::-webkit-scrollbar-track, #calculator::-webkit-scrollbar-track{
+  background: none;
+}
+
+#history-record-box::-webkit-scrollbar-thumb,
+ #roster-box-players::-webkit-scrollbar-thumb, #calculator::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #808080;
+}
+
+#roster-box-title, #history-box-title{
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.record-info{
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+.history-record-info{
+  padding: 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.roster-player, .history-record-item{
+  border-radius: 20px 20px 20px 20px ;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 1px solid gray;
+  min-width: fit-content;
+  height: fit-content;
+}
+
+.roster-player-avatar{
+  height: 80px;
+}
+
+.roster-player-level, .roster-player-name{
+  font-size: 17pt;
+  width: 50%;
+}
+
+.roster-player-profile{
+  word-wrap: break-word;
+  width: 50%;
+}
+.roster-player-finalize-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roster-player-x-btn{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+}
+
+.roster-player-avatar-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 25%;
+}
+
+.roster-player-btn-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  height: 100%;
+  width: 25%;
+}
+
+#roster-player-job-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#clear-logs{
+  border-radius: 20px 20px 20px 20px;
+  padding: 3px;
+  border: none;
+  margin-left: 10px;
+}
+
+
+.roster-player-name, .roster-player-guild, .roster-player-start-time{
+  text-align: right;
+  padding-right: 25px;
+}
+
+.roster-player-start-time{
+  text-align: right;
+  padding-right: 2rem;
+}
+
+.roster-player-level, .roster-player-job, .roster-player-exp{
+  text-align: left;
+}
+
+.roster-player-guild, .roster-player-job{
+  color: lightgray;
+}
+
+.player-exp-bar{
+  color: yellow;
+  width: fit-content;
+  border-radius: 20px 20px 20px 20px;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.clock-icon{
+  height:14px;
+  background-color:white;
+  border-radius: 26px 26px 26px 26px;
+  margin-right: 5px;
+}
+
+#search-ign-input-box{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 20px;
+}
+
+#search-ign-input{
+  border: none;
+  border-radius: 20px 0px 0px 20px ;
+  border: 2px solid white;
+  outline: none;
+}
+
+#search-ign-input-btn{
+  border-radius: 0px 20px 20px 0px;
+  border: none;
+  background-color: white;
+}
+
+#search-ign-input-btn:hover{
+  cursor: pointer;
+}
+
+#search-ign-input-btn:active{
+  border-radius: 0px 20px 20px 0px;
+  border: none;
+  background-color:lightgray;
+}
+
+#startexp, #endexp{
+  border-radius:  0px 20px 20px 0px;
+  border: none;
+  padding: 3px;
+  outline: none;
+}
+
+#startlvl, #endlvl{
+  border-radius: 20px 0px 0px 20px ;
+  border: none;
+  padding: 3px;
+  outline: none;
+}
+
+#rate{
+  border-radius: 20px 20px 20px 20px ;
+  border: 2px solid white;
+  outline: none;
+  text-align: center;
+  margin: 3px;
+}
+
+#history{
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 20px 20px 20px 20px;
+  border-left: 1px solid white;
+}
+
+#history-title{
+}
+
 
 #totalcost{
   display:flex;
@@ -179,9 +503,11 @@ hr{
 
 #exptabletitle{
   letter-spacing:  2rem;
-  font-size: 1.4rem;
+  font-size: 16pt;
   text-align:center;
   padding-left: 2rem;
+  font-weight: 600;
+  margin: 0;
 }
 
 #exptablebox{
@@ -191,22 +517,48 @@ hr{
   flex-direction:column;
   justify-content: center;
   align-items: center;
-  background-color: gray;
   text-align: center;
   gap: 10px;
   padding:10px;
+  box-sizing: border-box;
+  background-color:rgba(148, 148, 148);
+  margin-left: 20px;
+  margin-right: 20px;
+
+}
+
+#rateinputbox{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #tablecontainer{
+  scrollbar-width: auto;
+  scrollbar-color: #ffffff #808080;
   display:flex;
   flex-direction:column;
   align-items: center;
   max-height: 60vh;
-  overflow-x:scroll;
   overflow-x:hidden;
 }
 
-#exptable> th, td{
+#tablecontainer::-webkit-scrollbar {
+  width: 16px;
+}
+
+#tablecontainer::-webkit-scrollbar-track {
+  background: none;
+}
+
+#tablecontainer::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 3px solid #808080;
+}
+
+.exptable-td{
   text-align:center;
   padding: 10px;
   background-color:#343438;
@@ -235,7 +587,12 @@ hr{
   color:white;
 }
 
-@media screen and (orientation:portrait) {
+@media screen and (max-aspect-ratio: 13/9) {
+  body{
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
   #mushy{
     display: flex;
   }
@@ -248,4 +605,54 @@ hr{
     display: none;
   }
 
+  #toolbox{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+  }
+
+  #history{
+    box-sizing: border-box;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    border-left: none;
+  }
+
+  .roster-player-x-btn{
+    height: 100%;
+  }
+
+  .roster-player-name, .roster-player-guild, .roster-player-start-time{
+    text-align: center;
+    padding-right: 25px;
+
+  }
+
+  .roster-player-level, .roster-player-job, .roster-player-exp{
+    padding-left: 25px;
+    text-align: left;
+  }
+
+  .roster-player{
+    max-width: 60vw;
+    min-width: fit-content;
+  }
+
+  .roster-player-profile{
+    width: 75%;
+  }
+
+  .roster-player-btn-box{
+    width: 25%;
+    height: 100%;
+  }
+
+  #roster-player-job-box{
+    justify-content: flex-start;
+  }
+
+  #roster-box{
+    border-bottom: 1px solid white;
+  }
 }
