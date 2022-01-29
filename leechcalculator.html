@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-<!--  <script async src="https://www.googletagmanager.com/gtag/js?id=G-42680TYBBV"></script>
+  <!--  <script async src="https://www.googletagmanager.com/gtag/js?id=G-42680TYBBV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
 
@@ -43,16 +43,16 @@
             <label for="search-ign-input"></label>
             <input type="text" name="search-ign-input" id="search-ign-input" placeholder="Search IGN" value="srslyguys">
             <button id="search-ign-input-btn" onclick="searchIgn()"><img src="imgs/search.svg"></button>
-            <button id="clear-logs" onclick="clearLogs()">Clear</button>
+            <button class="clear-btn" onclick="clearLogs()">Clear</button>
           </div>
         </div>
         <div id="roster-box-players">
-
         </div>
       </div>
       <div id="calculator">
         <div class="info">
           <h2>Start</h2>
+          <input type="hidden" id="player-name">
           <input id="startlvl" type="number" name="startlvl" min="1" max="200" placeholder="Level">
           <input id="startexp" type="number" name="startexp" placeholder="Exp">
           <input id="startpercent" type="checkbox">%</input>
@@ -94,6 +94,9 @@
       <div id="history-box">
           <div id="history-box-header">
             <h3 id="history-box-title">History</h3>
+            <div id="history-box-btns">
+              <button class="clear-btn" onclick="clearHistory()">Clear</button>
+            </div>
           </div>
         <div id="history-record-box">
 

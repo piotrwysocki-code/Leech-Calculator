@@ -1,4 +1,3 @@
-
 let lvlUpExp = [];
 let totalexp = [];
 let players = [];
@@ -6,20 +5,20 @@ let history = [];
 const infoUrl = "https://maplelegends.com/api/character?name=";
 
 historyRecord = class {
-  constructor(id, startLvl, startExp, endLvl, endExp, expGained, total){
-       this.id = id;
-       this.startLvl = startLvl;
-       this.startExp = startExp;
-       this.endLvl = endLvl;
-       this.endExp = endExp;
-       this.expGained = expGained;
-       this.total = total;
+  constructor(id, startLvl, startExp, endLvl, endExp, expGained, total) {
+    this.id = id;
+    this.startLvl = startLvl;
+    this.startExp = startExp;
+    this.endLvl = endLvl;
+    this.endExp = endExp;
+    this.expGained = expGained;
+    this.total = total;
 
   }
 }
 
 Player = class {
-  constructor(id, name, guild, level, job, exp){
+  constructor(id, name, guild, level, job, exp) {
     this.id = id;
     this.name = name;
     this.guild = guild;
@@ -49,10 +48,10 @@ $(document).ready(function() {
 
   let input = document.getElementById("search-ign-input");
   input.addEventListener("keyup", function(event) {
-      if (event.keyCode === 13) {
-          event.preventDefault();
-          document.getElementById("search-ign-input-btn").click();
-      }
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("search-ign-input-btn").click();
+    }
   });
 
   $("#perhour").click(() => {
@@ -165,6 +164,7 @@ calculate = () => {
   let totalexpend = parseFloat(totalexp[endlvl]);
   let total = 0;
   let expGained = 0;
+
   if (startlvl > 0 && startlvl < 201) {
     if (endlvl < 201 && endlvl > 0) {
       if ($("#perexp").is(':checked')) {
@@ -186,6 +186,10 @@ calculate = () => {
 
           $("#total").html(`<u>${formatNum(total.toFixed(2))}</u>`);
           $("#expgained").html(`Total exp: ${formatNum(expGained.toFixed(2))}`);
+          let record = new historyRecord(history.length > 0 ? history.at(-1).id + 1 : 0,
+            startlvl, startexp, endlvl, endexp, expGained, total);
+          history.push(record);
+          refreshHistory();
         } else {
           alert("Rate should be greater than 0");
         }
@@ -212,6 +216,10 @@ calculate = () => {
             $("#total").html(`<u>${formatNum(total.toFixed(2))}</u>`);
             $("#expGained").html(`Total exp: ${formatNum(expGained.toFixed(2))}<br>
                 Estimated duration: ${formatNum(duration.toFixed(2))} hrs`);
+            let record = new historyRecord(history.length > 0 ? history.at(-1).id + 1 : 0,
+              startlvl, startexp, endlvl, endexp, expGained, total);
+            history.push(record);
+            refreshHistory();
           } else {
             alert("Enter price");
           }
@@ -225,27 +233,6 @@ calculate = () => {
   } else {
     alert("Missing or invalid level. Pick a level 1-200.");
   }
-  let record =  new historyRecord(history.length > 0 ? history.at(-1).id + 1 : 0,
-    startlvl, startexp, endlvl, endexp, expGained, total);
-    history.push(record);
-
-    history.forEach(item => {
-      $("#history-record-box").append(`
-        <div class="history-record-item">
-          <div class="history-record-info">
-            <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${item.startExp.toFixed(2)}
-            - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${item.endExp.toFixed(2)}
-            <div class="totals">
-                <span class="expGained">Total exp: ${formatNum(item.expGained.toFixed(2))}</span>
-                <span class="mesosTotal"><img class="totalMesoImg" src="imgs/meso.png"> ${formatNum(item.total.toFixed(2))}</span>
-             </div>
-            </div>
-          <div class="delete-record-box">
-            <button class="delete-record-btn" onclick="deleteRecord(${item.id})">x</button>
-          </div>
-        </div>
-        `);
-    });
 }
 
 searchIgn = () => {
@@ -255,13 +242,13 @@ searchIgn = () => {
     url: `${infoUrl}${ign}`,
     dataType: "JSON",
     success: function(data) {
-      if (typeof data.name !== 'undefined'){
+      if (typeof data.name !== 'undefined') {
         let p = new Player(players.length > 0 ? players.at(-1).id + 1 : 0,
           data.name, data.guild, data.level, data.job, data.exp);
         players.push(p);
         $("#roster-box-players").html("");
         refreshLogs();
-      }else{
+      } else {
         $("#search-ign-input").css('border', '1px solid red');
         $("#search-ign-input").css('border-right', 'none');
         $("#search-ign-input-btn").css('border', '1px solid red');
@@ -313,9 +300,40 @@ deleteLog = (item) => {
   let val = $(item).attr('value');
   $(item).parent().parent().parent().remove();
   players.forEach(elem => {
-    if(elem.id == val){
+    if (elem.id == val) {
       players.splice(players.indexOf(elem), 1);
     }
+  });
+}
+
+deleteRecord = (item) => {
+  let val = $(item).attr('value');
+  $(item).parent().parent().remove();
+  history.forEach(elem => {
+    if (elem.id == val) {
+      history.splice(history.indexOf(elem), 1);
+    }
+  });
+}
+
+refreshHistory = () => {
+  $("#history-record-box").html("");
+  history.forEach(item => {
+    $("#history-record-box").append(`
+    <div class="history-record-item">
+      <div class="history-record-info">
+        <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${item.startExp.toFixed(2)}
+        - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${item.endExp.toFixed(2)}
+        <div class="totals">
+            <span class="expGained">Total exp: ${formatNum(item.expGained.toFixed(2))}</span>
+            <span class="mesosTotal"><img class="totalMesoImg" src="imgs/meso.png"> ${formatNum(item.total.toFixed(2))}</span>
+         </div>
+        </div>
+      <div class="delete-record-box">
+        <button class="delete-record-btn" onclick="deleteRecord(this)" value="${item.id}">x</button>
+      </div>
+    </div>
+    `);
   });
 }
 
@@ -324,7 +342,7 @@ refreshLogs = () => {
   let jobImg = "https://maplelegends.com/static/images/rank/";
   let lvlUrl = "https://maplelegends.com/levels?name=";
   let guildUrl = "https://maplelegends.com/ranking/guildmembers?search=";
-  if(players.length > 0){
+  if (players.length > 0) {
     players.forEach(item => {
       $("#roster-box-players").append(`
       <div class="roster-player">
@@ -359,7 +377,7 @@ refreshLogs = () => {
       </div>
       `);
     });
-  }else{
+  } else {
     $("#roster-box-players").html("");
   }
 }
@@ -388,8 +406,9 @@ filterTable = () => {
 finalize = (id) => {
   let player = {};
   players.forEach(elem => {
-    if(elem.id == id){
+    if (elem.id == id) {
       player = elem;
+      $("#player-name").val(elem.name);
       $("#startlvl").val(elem.level);
       $("#startexp").val(parseFloat(elem.exp.slice(0, -1)));
       $("#startpercent").prop('checked', true);
@@ -413,11 +432,11 @@ responsiveAvatar = () => {
   let box2 = document.querySelector('body');
   let width2 = box2.offsetWidth;
 
-  if(width1 < 510 ){
+  if (width1 < 510) {
     $(".roster-player-avatar-box").css('display', 'none');
     $(".roster-player-profile").css('width', '75%');
 
-  }else{
+  } else {
     $(".roster-player-avatar-box").css('display', 'flex');
   }
 }
@@ -426,6 +445,12 @@ clearLogs = () => {
   players = [];
   console.log(players.length);
   refreshLogs();
+}
+
+clearHistory = () => {
+  history = [];
+  console.log(history.length);
+  refreshHistory();
 }
 
 formatNum = (num) => {
