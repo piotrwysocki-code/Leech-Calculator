@@ -14,10 +14,41 @@ body {
   background: linear-gradient(0deg, rgba(16, 23, 57, 1) 0%, rgba(0, 0, 0, 1) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+  width: 4px;
+  height: 4px;
+}
+body::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+body::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 1px none #ffffff;
+  border-radius: 50px;
+}
+body::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+body::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+body::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+body::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+body::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+body::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 #eph, #price {
@@ -51,6 +82,8 @@ body::-webkit-scrollbar {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 #navbarbox {
@@ -234,6 +267,10 @@ hr {
   font-size: 8pt;
 }
 
+.record-total {
+  margin: 0;
+}
+
 #toolbox {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -242,28 +279,28 @@ hr {
   width: 100%;
   height: fit-content;
   box-sizing: border-box;
-}
-
-.record-total {
-  margin: 0;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 #roster-box, #history-box, #calculator {
-  min-width: 100%;
+  width: 100%;
+  min-width: 350px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  border-radius: 20px 20px 20px 20px;
   overflow-y: hidden;
   overflow-x: hidden;
-  max-height: 65vh;
   padding: 10px;
   margin: 0;
   box-sizing: border-box;
+  max-height: 60.5vh;
+  height: 100%;
 }
 
 #calculator {
   grid-area: "c";
+  overflow-y: scroll;
 }
 
 #roster-box {
@@ -300,23 +337,25 @@ hr {
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
-  scrollbar-width: auto;
-  scrollbar-color: #ffffff #808080;
-  border-radius: 20px 20px 20px 20px;
+/*  scrollbar-width: auto;
+  scrollbar-color: #ffffff #808080;*/
   min-width: fit-content;
 }
 
 #history-record-box::-webkit-scrollbar, #roster-box-players::-webkit-scrollbar,
-#calculator::-webkit-scrollbar {
+#calculator::-webkit-scrollbar, #toolbox::-webkit-scrollbar {
   width: 3px;
+  height: 5px;
 }
 
-#history-record-box::-webkit-scrollbar-track,
+#history-record-box::-webkit-scrollbar-track, #toolbox::-webkit-scrollbar-track,
 #roster-box-players::-webkit-scrollbar-track, #calculator::-webkit-scrollbar-track {
   background: none;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-#history-record-box::-webkit-scrollbar-thumb,
+#history-record-box::-webkit-scrollbar-thumb, #toolbox::-webkit-scrollbar-thumb,
 #roster-box-players::-webkit-scrollbar-thumb, #calculator::-webkit-scrollbar-thumb {
   background-color: #ffffff;
   border-radius: 10px;
@@ -328,7 +367,7 @@ hr {
   width: 100%;
   text-align: left;
   margin-left: 8px;
-  border: 1px solid red;
+  word-wrap: nowrap;
 }
 
 .record-info {
@@ -340,7 +379,6 @@ hr {
   padding: 10px;
   width: 100%;
   text-align: left;
-  border: 1px solid red;
   width: 95%;
 }
 
@@ -369,7 +407,6 @@ hr {
 .roster-player-profile {
   word-wrap: break-word;
   width: 50%;
-  border: 1px solid red;
 }
 
 .roster-player-finalize-btn {
@@ -382,7 +419,6 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border: 1px solid yellow;
 }
 
 .roster-player-avatar-box {
@@ -399,13 +435,11 @@ hr {
   justify-content: right;
   width: 25%;
   height: 100%;
-  border: 1px solid orange;
 }
 
 .delete-record-box {
   height: 100%;
   width: 5%;
-  border: 1px solid green;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -483,6 +517,7 @@ hr {
   border-radius: 20px 0px 0px 20px;
   border: 2px solid white;
   outline: none;
+  width: 100px;
 }
 
 #search-ign-input-btn {
@@ -665,6 +700,7 @@ hr {
     display: flex;
     flex-direction: column;
     height: 100%;
+    max-height: 100%;
     width: 100%;
   }
 
@@ -691,7 +727,6 @@ hr {
 
   .roster-player-profile {
     width: 75%;
-    border: 1px solid red;
   }
 
   .roster-player-btn-box {

@@ -322,8 +322,8 @@ refreshHistory = () => {
     $("#history-record-box").append(`
     <div class="history-record-item">
       <div class="history-record-info">
-        <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${item.startExp.toFixed(2)}
-        - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${item.endExp.toFixed(2)}
+        <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${formatNum(item.startExp.toFixed(2))}
+        - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${formatNum(item.endExp.toFixed(2))}
         <div class="totals">
             <span class="expGained">Total exp: ${formatNum(item.expGained.toFixed(2))}</span>
             <span class="mesosTotal"><img class="totalMesoImg" src="imgs/meso.png"> ${formatNum(item.total.toFixed(2))}</span>
