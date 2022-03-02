@@ -1,7 +1,3 @@
-/*To Fix:
-- Player not found display success check mark
-*/
-
 const lvlUpExp = [];
 const totalexp = [];
 const formulaString = "Formula: (((endLvl totalExp - startLvl totalExp)";
@@ -75,6 +71,14 @@ $(document).ready(function() {
 
   refreshHistory();
   refreshLogs();
+
+
+  if(players.length == 0){  
+      $("#search-ign-input").val("srslyguys");
+      $("#search-ign-input-btn").click();
+      $("#search-ign-input").val("");
+  }
+
 
   let input = document.getElementById("search-ign-input");
   input.addEventListener("keyup", function(event) {
@@ -209,7 +213,6 @@ calculate = () => {
               `${new Date(dateObj.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}`, //extract the time from the date object
               $("#player-ign").val() ? $("#player-ign").val() : null, startlvl,
               startexp, endlvl, endexp, expGained, total, $("#trans-type")[0].checked);
-            $("#player-ign").val("");
             history.push(record);
             console.log(history);
             localStorage.setItem('history', JSON.stringify(history));
@@ -513,87 +516,11 @@ refreshLogs = () => {
         </div>
         `);
     });
-    /*responsiveAvatar();*/
   } else {
     $("#roster-box-players").html("");
   }
 }
-/*
-refreshLogs = () => {
-  let avatarUrl = "https://maplelegends.com/api/getavatar?name=";
-  let jobImg = "https://maplelegends.com/static/images/rank/";
-  let lvlUrl = "https://maplelegends.com/levels?name=";
-  let guildUrl = "https://maplelegends.com/ranking/guildmembers?search=";
 
-  recursiveRefresh = (array, length) => {
-    let arrLen = length;
-    let playerArr = array;
-    console.log(arrLen);
-    if (arrLen - 1 !== 0) {
-      recursiveRefresh(playerArr, arrLen - 1);
-    }
-    console.log(arrLen);
-    if (array[arrLen - 1].job === "Islander") {
-      jobImg = "https://maplelegends.com/static/images/rank/islander.png";
-    } else if (array[arrLen - 1].job === "Beginner") {
-      jobImg = "https://maplelegends.com/static/images/rank/beginner.png";
-    } else if (warriorJobs.includes(array[arrLen - 1].job)) {
-      jobImg = "https://maplelegends.com/static/images/rank/warrior.png";
-    } else if (pirateJobs.includes(array[arrLen - 1].job)) {
-      jobImg = "https://maplelegends.com/static/images/rank/pirate.png";
-    } else if (thiefJobs.includes(array[arrLen - 1].job)) {
-      jobImg = "https://maplelegends.com/static/images/rank/thief.png";
-    } else if (magicianJobs.includes(array[arrLen - 1].job)) {
-      jobImg = "https://maplelegends.com/static/images/rank/magician.png";
-    } else if (bowmanJobs.includes(array[arrLen - 1].job)) {
-      jobImg = "https://maplelegends.com/static/images/rank/bowman.png";
-    } else {
-      jobImg = "https://maplelegends.com/static/images/rank/all.png";
-    }
-    $("#roster-box-players").append(`
-      <div class="roster-player">
-          <div class="roster-player-avatar-box">
-            <img class="roster-player-avatar" src="${avatarUrl}${array[arrLen-1].name}">
-          </div>
-          <table class="roster-player-profile">
-            <tr>
-              <td class="roster-player-name ">${array[arrLen-1].name}</td>
-              <td class="roster-player-level">Lv.
-               ${array[arrLen-1].level}</td>
-            </tr>
-              <td class="roster-player-guild">${array[arrLen-1].guild}</td>
-              <td class="roster-player-job"><div id="roster-player-job-box">${array[arrLen-1].job}
-              <img id="job-img" src="${jobImg}"></div></td>
-            </tr>
-            <tr>
-              <td class="roster-player-start-time">
-                <span>${new Date(array[arrLen-1].date).getDate()}/${parseInt(new Date(array[arrLen-1].date).getMonth()) + 1}/${new Date(array[arrLen-1].date).getFullYear()} - </span>
-                <span>${new Date(new Date(array[arrLen-1].date).getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}</span>
-              </td>
-              <td class="roster-player-exp"><span class="player-exp-bar">${array[arrLen-1].exp}</span></td>
-            </tr>
-          </table>
-          <div class="roster-player-btn-box">
-            <div class="roster-player-finalize-btn">
-              <button class="finalize-btn" onclick="finalize(${array[arrLen-1].id})">Finalize</button>
-            </div>
-            <div class="roster-player-x-btn">
-              <button class="delete-log-btn" onclick="deleteLog(this)" value="${array[arrLen-1].id}">x</button>
-            </div>
-         </div>
-      </div>
-      `);
-  }
-
-  if (players.length > 0) {
-    $("#roster-box-players").html("");
-    recursiveRefresh(players, players.length);
-    responsiveAvatar();
-  } else {
-    $("#roster-box-players").html("");
-  }
-}
-*/
 filterTable = () => {
     console.log("hello");
     let input = $("#searchlvl").val();
@@ -643,18 +570,6 @@ finalize = (id) => {
       }
     }
   });
-}
-
-responsiveAvatar = () => {
-  let box1 = document.querySelector('#roster-box');
-  let width1 = box1.offsetWidth;
-  console.log(width1);
-  if (width1 < 633) {
-    $(".roster-player-avatar-box").css('display', 'none');
-    $(".roster-player-profile").css('width', '50%');
-  } else {
-    $(".roster-player-avatar-box").css('display', 'flex');
-  }
 }
 
 checkFields = () => {
