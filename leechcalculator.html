@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Leech Calculator</title>
   <meta charset="utf-8">
-  <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0" >
+  <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
   <link rel="icon" href="imgs/meso.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" type="text/css" href="style.css">
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -21,6 +26,7 @@
   </script> -->
   <script type='text/javascript' src='calcscript.js'></script>
 </head>
+
 <body>
   <div id="maincontainer">
     <div id="navbarbox">
@@ -31,7 +37,6 @@
         <div id="bigtitle">
           <a href="https://maplelegends.com/ranking/all?search=srslyguys" target="_blank"><img id="srsly" src="imgs/srsly.png"></a>
           <p id="bigtitletext">SrslyGuys' Leech Calculator</p>
-          <!--<img id="hungry" src="imgs/hungry.gif">-->
         </div>
       </div>
     </div>
@@ -40,8 +45,11 @@
         <div id="roster-box-header">
           <h3 id="roster-box-title">Exp Log</h3>
           <div id="search-ign-input-box">
+            <img id="loading" src="imgs/hungry.gif">
+            <img id="success" src="imgs/success.png">
+            <img id="error" src="imgs/error.png">
             <label for="search-ign-input"></label>
-            <input type="text" name="search-ign-input" id="search-ign-input" placeholder="Search IGN" value="srslyguys">
+            <input type="text" name="search-ign-input" id="search-ign-input" placeholder="Search IGN">
             <button id="search-ign-input-btn" onclick="searchIgn()"><img src="imgs/search.svg"></button>
             <button class="clear-btn" onclick="clearLogs()">Clear</button>
           </div>
@@ -52,65 +60,90 @@
       <div id="calculator">
         <div class="info">
           <h2>Start</h2>
-          <input type="hidden" id="player-name">
-          <input id="startlvl" type="number" name="startlvl" min="1" max="200" placeholder="Level">
-          <input id="startexp" type="number" name="startexp" placeholder="Exp">
-          <input id="startpercent" type="checkbox">%</input>
+          <div id="state-animations">
+            <img id="success-start" src="imgs/success.png">
+            <input type="hidden" id="player-id">
+            <input id="startlvl" type="number" name="startlvl" min="1" max="200" placeholder="Level">
+            <input id="startexp" type="number" name="startexp" placeholder="Exp">
+            <input id="startpercent" type="checkbox">%</input>
+          </div>
         </div>
-
         <div class="info">
           <h2>Finish</h2>
-          <input type="number" id="endlvl" name="endlvl" min="1" max="200" placeholder="Level">
-          <input id="endexp" type="number" name="endexp" placeholder="Exp">
-          <input id="endpercent" type="checkbox">%
+          <div id="state-animations">
+            <img id="loading-end" src="imgs/hungry.gif">
+            <img id="success-end" src="imgs/success.png">
+            <img id="error-end" src="imgs/error.png">
+            <input type="number" id="endlvl" name="endlvl" min="1" max="200" placeholder="Level">
+            <input id="endexp" type="number" name="endexp" placeholder="Exp">
+            <input id="endpercent" type="checkbox">%
+          </div>
         </div>
         <br>
 
         <div id="ratebox">
           <h2>Rate</h2>
-          <input id="perexp" type="radio" name="ratetype" value="exp">per exp
-          <input id="perhour" type="radio" name="ratetype" value="hour">per hour
-          <br><br>
-          <div id="rateinputbox">
-            <label for="perexp">1 meso per</label>
-            <input id="rate" name="perexp" type="number" style="width:40px;" min="0" placeholder="exp">
+          <div id="trans-type-box">
+            <label class="trans-toggle">
+              <input type="checkbox" id="trans-type">
+              <span class="trans-slider"></span>
+              <span class="trans-labels" data-on="SELLING" data-off="BUYING"></span>
+            </label>
+            <label class="rate-toggle">
+              <input type="checkbox" id="rate-type">
+              <span class="rate-slider"></span>
+              <span class="rate-labels" data-on="EXP" data-off="HOURS"></span>
+            </label>
           </div>
           <br>
-      <!--    <div id="trans-type-box">
-            <input id="buy" name="transtype" type="radio" value="1">
-            <label for="buy">buying</label>
-            <input id="sell" name="transtype" type="radio" value="2">
-            <label for="sell">selling</label>
-            <br>(optional)
+          <div id="rateinputbox">
+            <input id="eph" name="hourly" type="number" placeholder="EPH"></input>
+            <input id="price" name="price" type="number" placeholder="Price /hr"></input>
           </div>
-          <br> -->
+          <br>
+          <div id="player-ign-box">
+            <input type="text" id="player-ign" placeholder="IGN (Optional)">
+          </div>
+          <br>
           <button id="calculateBtn" onclick="calculate()">Calculate</button>
         </div>
         <br>
         <div id="outputbox">
           <div id="totalcost">
-            <img id="meso" src="imgs/meso.png">
-            <p id="total">____________</p>
+            <img id="meso" src="imgs/meso-animated.gif"><br>
+            <div id="total"></div>
           </div>
-          <p id="expgained"></p>
-          <br>
-          <i>
-            <p id="formula">Formula: (((endLvl totalExp - startLvl totalExp) - startExp) + endExp) / rate</p>
-          </i>
         </div>
+        <br>
+        <i>
+          <p id="formula">Formula: (((endLvl totalExp - startLvl totalExp) - startExp) + endExp) / eph * price</p>
+        </i>
       </div>
       <div id="history-box">
-          <div id="history-box-header">
-            <h3 id="history-box-title">History</h3>
-            <div id="history-box-btns">
-              <button class="clear-btn" onclick="clearHistory()">Clear</button>
+        <div id="history-box-header">
+          <h3 id="history-box-header-title">History</h3>
+          <div id="history-box-header-totals">
+            <div class="total-box">
+              <img class="total-icon" src="imgs/loss.png">
+              <h4 id="total-loss">
+                0.00
+              </h4>
+            </div>
+            <div class="total-box">
+              <img class="total-icon" src="imgs/gain.png">
+              <h4 id="total-gain">
+                0.00
+              </h4>
             </div>
           </div>
+          <div id="history-box-header-btns">
+            <img id="export-csv-btn" src="imgs/export.png">
+            <button class="clear-btn" onclick="clearHistory()">Clear</button>
+          </div>
+        </div>
         <div id="history-record-box">
-
         </div>
       </div>
-
       <br>
     </div>
     <div id="exptablebox">
@@ -123,7 +156,5 @@
       <source><i>Source: <a id="exptablesrc" target="_blank" href="https://maplelegends.com/lib/exptable">https://maplelegends.com/lib/exptable</a></i></source>
     </div>
   </div>
-  </div>
 </body>
-
 </html>

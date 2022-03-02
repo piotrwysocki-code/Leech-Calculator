@@ -1,8 +1,16 @@
+/*ToFix:
+History records and player logs boxes are fucking pissing me off theyre not equal width at all times
+
+
+*/
+
 html {
   font-family: arial, sans-serif;
-  height: 100%;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  display: flex;
+  align-items: stretch;
+  min-width: fit-content;
 }
 
 body {
@@ -14,48 +22,64 @@ body {
   background: linear-gradient(0deg, rgba(16, 23, 57, 1) 0%, rgba(0, 0, 0, 1) 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  overflow-x: hidden;
+  min-width: fit-content;
 }
 
 body::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
+
 body::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
+
 body::-webkit-scrollbar-thumb {
   background: #e1e1e1;
   border: 1px none #ffffff;
   border-radius: 50px;
 }
+
 body::-webkit-scrollbar-thumb:hover {
   background: #ffffff;
 }
+
 body::-webkit-scrollbar-thumb:active {
-  background: #000000;
+  background: gray;
 }
+
 body::-webkit-scrollbar-track {
   background: #666666;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
+
 body::-webkit-scrollbar-track:hover {
   background: #666666;
 }
+
 body::-webkit-scrollbar-track:active {
-  background: #333333;
+  background: lightgray;
 }
+
 body::-webkit-scrollbar-corner {
   background: transparent;
 }
 
 #eph, #price {
-  border-radius: 20px 20px 20px 20px;
+  border-radius: 20px 0px 0px 20px;
   text-align: center;
-  border: 2px solid white;
+  border: none;
   outline: none;
+  padding: 3px;
+  width: 30%;
+}
+
+#price {
+  margin-left: 4px;
+  border-radius: 0px 20px 20px 0px;
+
 }
 
 #mushybox {
@@ -69,7 +93,16 @@ body::-webkit-scrollbar-corner {
 }
 
 #hungry {
-  height: 50px;
+  height: 20px;
+}
+
+#loading, #success, #error, #loading-end, #success-end, #error-end, #success-start{
+  height: 22px;
+}
+
+#state-animations {
+  display: flex;
+  gap: 1px;
 }
 
 #MLlogo {
@@ -78,18 +111,14 @@ body::-webkit-scrollbar-corner {
 
 #maincontainer {
   text-align: center;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  width: 100%;
 }
 
 #navbarbox {
   background: rgb(0, 40, 106);
   background: linear-gradient(0deg, rgba(0, 40, 106, 1) 0%, rgba(0, 108, 189, 1) 100%);
-  width: 100%;
   padding: 8px;
 }
 
@@ -197,9 +226,11 @@ body::-webkit-scrollbar-corner {
 
 #bigtitletext {
   letter-spacing: .2rem;
+  font-family: 'Fredoka One', cursive;
   font-size: 20pt;
   text-align: center;
   margin: 0;
+  white-space: nowrap;
 }
 
 #bigtitle {
@@ -211,6 +242,21 @@ body::-webkit-scrollbar-corner {
   text-align: center;
   gap: 5px;
   width: 100%;
+}
+
+#export-csv-btn{
+  height: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+}
+
+#export-csv-btn:hover{
+  cursor: pointer;
+}
+
+#formula{
+  font-size: 8pt;
 }
 
 hr {
@@ -234,6 +280,8 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .history-start {
@@ -257,44 +305,55 @@ hr {
 #outputbox {
   display: flex;
   flex-direction: column;
-  border-radius: 10px 10px 10px 10px;
   width: fit-content;
-  padding-right: 15px;
-  padding-left: 15px;
+  height: fit-content;
   justify-content: center;
   align-items: center;
   text-align: center;
   font-size: 8pt;
+  transition: all 0.4s ease-in-out;
 }
 
 .record-total {
   margin: 0;
+  word-wrap: nowrap;
 }
 
 #toolbox {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas:
-    " r  c h";
+  grid-template-columns: 1fr 2fr 1fr;
   width: 100%;
-  height: fit-content;
   box-sizing: border-box;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 63vh;
 }
 
 #roster-box, #history-box, #calculator {
   width: 100%;
-  min-width: 350px;
+  min-width: 385px;
   display: flex;
   align-items: center;
   flex-direction: column;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  padding: 10px;
-  margin: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 10px;
   box-sizing: border-box;
-  max-height: 60.5vh;
+  min-height: 63vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 63vh;
+  border: 1px solid red;
+}
+
+#history-record-box, #roster-box-players {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  width: 25vw;
+  min-height: fit-content;
+  min-width: fit-content;
   height: 100%;
 }
 
@@ -303,24 +362,51 @@ hr {
   overflow-y: scroll;
 }
 
-#roster-box {
-  grid-area: "r";
-}
-
 #history-box {
   grid-area: "h";
+  min-width: fit-content;
+}
+
+#roster-box {
+  grid-area: "r";
+  min-width: fit-content;
+}
+
+#history-box-header-totals {
+  width: 100%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  gap: 30px;
+}
+
+#total-loss, #total-gain {
+  margin: 0;
+  font-weight: lighter;
+}
+
+#history-box-header-btns {
+  height: fit-content;
+  width: 25%;
+  justify-content: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 #history-box-header, #roster-box-header {
-  background-color: rgba(148, 148, 148, 0.45);
+  background-color: rgba(148, 148, 148);
   width: 100%;
   border-radius: 20px 20px 20px 20px;
   padding: 10px;
-  height: fit-content;
   box-sizing: border-box;
-  min-width: fit-content;
   display: flex;
   flex-direction: row;
+  min-width: 360px;
+  top: 0;
+  position: sticky;
 }
 
 #roster-box-header {
@@ -329,45 +415,37 @@ hr {
   justify-content: space-between;
 }
 
-#history-record-box, #roster-box-players {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  width: 100%;
-/*  scrollbar-width: auto;
-  scrollbar-color: #ffffff #808080;*/
-  min-width: fit-content;
-}
-
-#history-record-box::-webkit-scrollbar, #roster-box-players::-webkit-scrollbar,
+#history-box::-webkit-scrollbar, #roster-box::-webkit-scrollbar,
 #calculator::-webkit-scrollbar, #toolbox::-webkit-scrollbar {
   width: 3px;
   height: 5px;
 }
 
-#history-record-box::-webkit-scrollbar-track, #toolbox::-webkit-scrollbar-track,
-#roster-box-players::-webkit-scrollbar-track, #calculator::-webkit-scrollbar-track {
+#history-box::-webkit-scrollbar-track, #toolbox::-webkit-scrollbar-track,
+#roster-box::-webkit-scrollbar-track, #calculator::-webkit-scrollbar-track {
   background: none;
-  margin-top: 50px;
-  margin-bottom: 50px;
 }
 
-#history-record-box::-webkit-scrollbar-thumb, #toolbox::-webkit-scrollbar-thumb,
-#roster-box-players::-webkit-scrollbar-thumb, #calculator::-webkit-scrollbar-thumb {
+#history-box::-webkit-scrollbar-thumb, #toolbox::-webkit-scrollbar-thumb,
+#roster-box::-webkit-scrollbar-thumb, #calculator::-webkit-scrollbar-thumb {
   background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid #808080;
 }
 
-#roster-box-title, #history-box-title {
+#roster-box-title, #history-box-header-title {
   margin: 0;
-  width: 100%;
+  width: 25%;
   text-align: left;
   margin-left: 8px;
-  word-wrap: nowrap;
+  margin-right: 8px;
+  white-space: nowrap;
+  word-break: keep-all;
+}
+
+.info {
+
+
 }
 
 .record-info {
@@ -382,31 +460,108 @@ hr {
   width: 95%;
 }
 
-.roster-player, .history-record-item {
+.history-record-footer-info{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.history-record-hr {
+  margin: 2px;
+  border-top: 1px solid #8c8b8b;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+  opacity: 0.2;
+}
+
+#player-ign, #searchlvl{
+  text-align:center;
+  border-radius: 20px 20px 20px 20px;
+  border: none;
+  padding: 3px;
+  outline: none;
+}
+
+#per-exp-input {
+  border-radius: 20px 20px 20px 20px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, .3);
+  display: flex;
+  border-right: none;
+  border-left: none;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#rate-label {
+  padding-right: 2px;
+  padding-bottom: 2px;
+}
+
+.roster-player/*, .history-record-item */{
+  border-radius: 20px 20px 20px 20px;
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  /*flex-direction: row;
+  align-items: center;
+  justify-content: center;*/
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  width: 95%;
+  min-width: 95%;
+  min-height: fit-content;
+}
+
+.history-record-item {
   border-radius: 20px 20px 20px 20px;
   margin: 10px;
   display: flex;
+/*  display: grid;
+  grid-template-areas: " a b c ";*/
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  border: 1px solid gray;
-  min-width: fit-content;
-  height: fit-content;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  width: 95%;
+  min-width: 95%;
+  min-height: fit-content;
+}
+
+.history-record-item {
+  padding-right: 5px;
 }
 
 .roster-player-avatar {
-  height: 80px;
+  /*max-height: 100%;
+  max-width: 100%;*/
+}
+
+.roster-player-avatar-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /*min-width: 25%;*/
+  height: 100%;
+  box-sizing: border-box;
+  grid-area: "a";
 }
 
 .roster-player-level, .roster-player-name {
   font-size: 17pt;
   width: 50%;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .roster-player-profile {
   word-wrap: break-word;
-  width: 50%;
+  grid-area: "b";
 }
 
 .roster-player-finalize-btn {
@@ -421,20 +576,26 @@ hr {
   justify-content: flex-start;
 }
 
-.roster-player-avatar-box {
+.roster-player-btn-box {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  min-width: fit-content;
+  justify-content: right;
+  grid-area: "c";
+
+}
+
+.total-box {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 25%;
 }
 
-.roster-player-btn-box {
-  display: flex;
-  flex-direction: row;
-  justify-content: right;
-  width: 25%;
-  height: 100%;
+.total-icon {
+  height: 12px;
+  margin: 3px
 }
 
 .delete-record-box {
@@ -450,6 +611,8 @@ hr {
   display: flex;
   flex-direction: row;
   align-items: center;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 #clear-logs {
@@ -463,7 +626,6 @@ hr {
   border-radius: 20px 20px 20px 20px;
   padding: 3px;
   border: none;
-  margin-left: 10px;
 }
 
 .clear-btn:hover {
@@ -473,13 +635,14 @@ hr {
 .clear-btn:active {}
 
 .roster-player-name, .roster-player-guild, .roster-player-start-time {
-  text-align: right;
+  text-align: center;
   padding-right: 25px;
+  white-space: nowrap;
+  word-break: keep-all;
 }
 
 .roster-player-start-time {
-  text-align: right;
-  padding-right: 2rem;
+
 }
 
 .roster-player-level, .roster-player-job, .roster-player-exp {
@@ -508,22 +671,22 @@ hr {
 #search-ign-input-box {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  padding-left: 20px;
+  justify-content: right;
+  align-items: center;
 }
 
 #search-ign-input {
-  border: none;
   border-radius: 20px 0px 0px 20px;
   border: 2px solid white;
   outline: none;
-  width: 100px;
+  width: 45%;
 }
 
 #search-ign-input-btn {
   border-radius: 0px 20px 20px 0px;
   border: none;
-  background-color: white;
+  margin-right: 10px;
+
 }
 
 #search-ign-input-btn:hover {
@@ -535,6 +698,8 @@ hr {
   border: none;
   background-color: lightgray;
 }
+
+
 
 #startexp, #endexp {
   border-radius: 0px 20px 20px 0px;
@@ -555,7 +720,8 @@ hr {
   border: 2px solid white;
   outline: none;
   text-align: center;
-  margin: 3px;
+  width: 40px;
+  margin: 0;
 }
 
 #history {
@@ -572,9 +738,10 @@ hr {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  width: fit-content;
+  justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 5px;
+  min-height: fit-content;
 }
 
 #totalbox {
@@ -585,11 +752,12 @@ hr {
 }
 
 #total {
-  font-size: 2rem;
-  margin: 5px;
+  font-size: 1.5rem;
+  margin: 0;
+  font-family: 'Press Start 2P', cursive;
 }
 
-#expgained {
+#total-exp {
   margin-top: 0;
 }
 
@@ -611,11 +779,9 @@ hr {
   align-items: center;
   text-align: center;
   gap: 10px;
-  padding: 10px;
+  padding: 5px;
   box-sizing: border-box;
   background-color: rgba(148, 148, 148);
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 #rateinputbox {
@@ -665,7 +831,7 @@ hr {
 }
 
 #meso {
-  height: 30px;
+  height: 60px;
 }
 
 #exptablesrc {
@@ -678,7 +844,118 @@ hr {
   color: white;
 }
 
-@media screen and (max-aspect-ratio: 13/9) {
+.trans-toggle, .rate-toggle {
+  --width: 85px;
+  --height: calc(var(--width) / 3);
+  position: relative;
+  display: inline-block;
+  width: var(--width);
+  height: var(--height);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  border-radius: var(--height);
+  cursor: pointer;
+}
+
+.trans-toggle input, .rate-toggle input {
+  display: none;
+}
+
+.trans-toggle  .trans-slider, .rate-toggle .rate-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--height);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+  color:red;
+}
+
+.rate-toggle .rate-slider {
+  border: 1px solid rgba(255, 145, 0, 0.5);
+}
+
+.trans-toggle .trans-slider::before, .rate-toggle .rate-slider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--height));
+  height: calc(var(--height));
+  border-radius: calc(var(--height) / 2);
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+}
+
+.trans-toggle input:checked+.trans-slider{
+  border: 1px solid rgba(35, 255, 0, 0.3);
+}
+
+.rate-toggle input:checked+.rate-slider {
+  border: 1px solid rgba(255, 242, 15, 0.3);
+}
+
+.trans-toggle input:checked+.trans-slider::before, .rate-toggle input:checked+.rate-slider::before  {
+  transform: translateX(calc(var(--width) - var(--height)));
+}
+
+.trans-toggle .trans-labels, .rate-toggle .rate-labels{
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 12px;
+  font-family: sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+
+.trans-toggle .trans-labels::after{
+  content: attr(data-off);
+  position: absolute;
+  right: 5px;
+  color: red;
+  opacity: 1;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s ease-in-out;
+}
+
+.rate-toggle .rate-labels::after {
+ content: attr(data-off);
+ position: absolute;
+ right: 5px;
+ color: orange;
+ opacity: 1;
+ text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+ transition: all 0.4s ease-in-out;
+}
+
+.trans-toggle .trans-labels::before, .rate-toggle .rate-labels::before {
+  content: attr(data-on);
+  position: absolute;
+  left: 5px;
+  color: #ffffff;
+  opacity: 0;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+  transition: all 0.4s ease-in-out;
+  color: green;
+}
+
+.rate-toggle .rate-labels::before {
+  color: yellow;
+}
+
+.trans-toggle input:checked~.trans-labels::after, .rate-toggle input:checked~.rate-labels::after{
+  opacity: 0;
+}
+
+.trans-toggle input:checked~.trans-labels::before, .rate-toggle input:checked~.rate-labels::before{
+  opacity: 1;
+}
+
+@media only screen and (max-aspect-ratio: 13/9) {
   body {
     width: 100vw;
     box-sizing: border-box;
@@ -699,9 +976,10 @@ hr {
   #toolbox {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    max-height: 100%;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 100%;
   }
 
   #history {
@@ -711,27 +989,26 @@ hr {
     border-left: none;
   }
 
-  .roster-player-name, .roster-player-guild, .roster-player-start-time {
-    text-align: center;
-    padding-right: 25px;
-  }
-
   .roster-player-level, .roster-player-job, .roster-player-exp {
     padding-left: 25px;
     text-align: left;
   }
 
   .roster-player {
-    max-width: 60vw;
+    min-width: fit-content;
+  }
+
+  .roster-player-avatar-box {
+
   }
 
   .roster-player-profile {
-    width: 75%;
+
   }
 
   .roster-player-btn-box {
-    width: 25%;
     height: 100%;
+    box-sizing: border-box;
   }
 
   .roster-player-x-btn {
@@ -740,6 +1017,10 @@ hr {
 
   #roster-player-job-box {
     justify-content: flex-start;
+  }
+
+  #roster-box, #history-box, #calculator {
+    min-height: fit-content;
   }
 
   #roster-box {
