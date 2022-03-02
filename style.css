@@ -90,8 +90,9 @@ body::-webkit-scrollbar-corner {
   height: 20px;
 }
 
-#loading, #success, #error, #loading-end, #success-end, #error-end, #success-start{
+#loading, #success, #error, #loading-end, #success-end, #error-end, #success-start, #success-ign {
   height: 22px;
+  display: none;
 }
 
 #state-animations {
@@ -826,7 +827,7 @@ hr {
 }
 
 #meso {
-  height: 60px;
+  height: 50px;
 }
 
 #exptablesrc {

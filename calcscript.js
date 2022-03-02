@@ -52,13 +52,13 @@ Player = class {
 }
 
 $(document).ready(function() {
-  $("#loading").hide();
+  /*$("#loading").hide();
   $("#success").hide();
   $("#error").hide();
   $("#loading-end").hide();
   $("#success-end").hide();
   $("#error-end").hide();
-  $("#success-start").hide();
+  $("#success-start").hide();*/
 
   $.ajax({
     type: "GET",
@@ -73,10 +73,10 @@ $(document).ready(function() {
   refreshLogs();
 
 
-  if(players.length == 0){  
-      $("#search-ign-input").val("srslyguys");
-      $("#search-ign-input-btn").click();
-      $("#search-ign-input").val("");
+  if (players.length == 0) {
+    $("#search-ign-input").val("srslyguys");
+    $("#search-ign-input-btn").click();
+    $("#search-ign-input").val("");
   }
 
 
@@ -302,12 +302,12 @@ searchIgn = () => {
     success: function(data) {
       console.log(data.name);
       if (typeof data.name !== 'undefined') {
-        $("#success").show();
+        $("#success").show("fast");
         let dateObj = new Date();
         console.log(dateObj);
         let p = new Player(players.length > 0 ? players.at(-1).id + 1 : 0,
           data.name, dateObj, data.guild, data.level, data.job, data.exp);
-          console.log(players);
+        console.log(players);
         players.push(p);
         console.log(players);
         localStorage.setItem("players", JSON.stringify(players));
@@ -316,7 +316,7 @@ searchIgn = () => {
         setTimeout(() => {
           $("#success").hide("slow");
         }, 2000)
-      }else{
+      } else {
         $("#search-ign-input").css('color', 'red');
         $("#search-ign-input").val("Player not found");
         $("#error").show();
@@ -329,7 +329,7 @@ searchIgn = () => {
     },
     error: function() {
       $("#loading").hide();
-      $("#error").show();
+      $("#error").show("fast");
       setTimeout(() => {
         $("#error").hide("slow");
       }, 2000)
@@ -546,6 +546,7 @@ filterTable = () => {
 
 finalize = (id) => {
   let player = {};
+
   players.forEach(elem => {
     if (elem.id == id) {
       player = elem;
@@ -556,18 +557,71 @@ finalize = (id) => {
         $("#startpercent").click();
       }
       $("#player-ign").val(`${elem.name}`);
+      $("#startlvl").animate({
+        backgroundColor: "#0DD700"
+      }, "fast");
+      $("#startexp").animate({
+        backgroundColor: "#0DD700"
+      }, "fast");
+      $("#player-ign").animate({
+        backgroundColor: "#0DD700"
+      }, "fast");
+
+      $("#startlvl").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
+      $("#startexp").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
+      $("#player-ign").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
     }
-  })
+  });
+
   $.ajax({
     type: "GET",
     url: `${infoUrl}${player.name}`,
     dataType: "JSON",
     success: function(data) {
+      console.log(data);
       $("#endlvl").val(data.level);
       $("#endexp").val(parseFloat(data.exp.slice(0, -1)));
       if (!$("#endpercent").is(':checked')) {
         $("#endpercent").click();
       }
+      $("#endlvl").animate({
+        backgroundColor: "#0DD700"
+      }, "fast");
+
+      $("#endexp").animate({
+        backgroundColor: "#0DD700"
+      }, "fast");
+
+      $("#endlvl").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
+
+      $("#endexp").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
+    },
+    error: function(){
+      $("#endlvl").animate({
+        backgroundColor: "#FF0000"
+      }, "fast");
+
+      $("#endexp").animate({
+        backgroundColor: "#FF0000"
+      }, "fast");
+
+      $("#endlvl").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
+
+      $("#endexp").animate({
+        backgroundColor: "#FFFFFF"
+      }, "fast");
     }
   });
 }
