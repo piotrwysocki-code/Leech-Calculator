@@ -526,6 +526,7 @@ hr {
   width: 95%;
   min-width: 95%;
   min-height: fit-content;
+  cursor: pointer;
 }
 
 .history-record-item {
@@ -856,23 +857,30 @@ hr {
   display: none;
 }
 
-.trans-toggle  .trans-slider, .rate-toggle .rate-slider {
+.trans-toggle  .trans-slider {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   border-radius: var(--height);
-  border: 1px solid rgba(255, 0, 0, 0.3);
+  border: 1px solid rgba(255, 0, 0, 0.5);
   transition: all 0.4s ease-in-out;
   color:red;
 }
 
 .rate-toggle .rate-slider {
-  border: 1px solid rgba(255, 145, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--height);
+  border: 1px solid rgba(255, 130, 0, 0.5);
+  transition: all 0.4s ease-in-out;
 }
 
-.trans-toggle .trans-slider::before, .rate-toggle .rate-slider::before {
+.trans-toggle .trans-slider::before {
   content: '';
   position: absolute;
   top: 0;
@@ -880,17 +888,39 @@ hr {
   width: calc(var(--height));
   height: calc(var(--height));
   border-radius: calc(var(--height) / 2);
-  background-color: #fff;
+  background-color: rgba(255, 0, 0, 0.5);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.4s ease-in-out;
 }
 
-.trans-toggle input:checked+.trans-slider{
-  border: 1px solid rgba(35, 255, 0, 0.3);
+.rate-toggle .rate-slider::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--height));
+  height: calc(var(--height));
+  border-radius: calc(var(--height) / 2);
+  background-color: rgba(255, 130, 0, 0.5);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s ease-in-out;
+}
+
+.trans-toggle input:checked+.trans-slider::before{
+  background-color: rgba(0, 255, 0, 0.5);
+}
+
+.trans-toggle input:checked+.trans-slider {
+  border: 1px solid rgba(35, 255, 0, 0.5);
+
+}
+
+.rate-toggle input:checked+.rate-slider::before {
+  background-color: rgba(255, 255, 0, 0.5);
 }
 
 .rate-toggle input:checked+.rate-slider {
-  border: 1px solid rgba(255, 242, 15, 0.3);
+  border: 1px solid rgba(255, 200, 15, 0.5);
 }
 
 .trans-toggle input:checked+.trans-slider::before, .rate-toggle input:checked+.rate-slider::before  {
@@ -935,8 +965,8 @@ hr {
   color: #ffffff;
   opacity: 0;
   text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
-  transition: all 0.4s ease-in-out;
-  color: green;
+  transition: all 0.6s ease-in-out;
+  color: limegreen;
 }
 
 .rate-toggle .rate-labels::before {

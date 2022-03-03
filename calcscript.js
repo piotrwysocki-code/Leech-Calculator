@@ -52,14 +52,6 @@ Player = class {
 }
 
 $(document).ready(function() {
-  /*$("#loading").hide();
-  $("#success").hide();
-  $("#error").hide();
-  $("#loading-end").hide();
-  $("#success-end").hide();
-  $("#error-end").hide();
-  $("#success-start").hide();*/
-
   $.ajax({
     type: "GET",
     url: "exptable.csv",
@@ -69,16 +61,22 @@ $(document).ready(function() {
     }
   });
 
+  $(document).tooltip({
+    show: { effect: 'slideDown', delay: 1000, duration: 250 }
+  });
+
+  $(".history-record-item").click(()=>{
+
+  });
+
   refreshHistory();
   refreshLogs();
-
 
   if (players.length == 0) {
     $("#search-ign-input").val("srslyguys");
     $("#search-ign-input-btn").click();
     $("#search-ign-input").val("");
   }
-
 
   let input = document.getElementById("search-ign-input");
   input.addEventListener("keyup", function(event) {
@@ -419,7 +417,7 @@ refreshHistory = () => {
   if (history.length > 0) {
     history.forEach(item => {
       $("#history-record-box").append(`
-        <div class="history-record-item">
+        <div class="history-record-item" title="Copy to clipboard">
           <div class="history-record-info">
             <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${formatNum(item.startExp.toFixed(2))}
             - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${formatNum(item.endExp.toFixed(2))}
@@ -443,6 +441,7 @@ refreshHistory = () => {
           </div>
           <div class="delete-record-box">
             <button class="delete-record-btn" onclick="deleteRecord(this)" value="${item.id}">x</button>
+            <button type="button" value="${item.id}" onclick(copyToHistoryRecordClipBoard(this)) hidden> 
           </div>
         </div>
         `);
@@ -507,7 +506,7 @@ refreshLogs = () => {
             </table>
             <div class="roster-player-btn-box">
               <div class="roster-player-finalize-btn">
-                <button class="finalize-btn" onclick="finalize(${item.id})">Finalize</button>
+                <button class="finalize-btn" title="Check player's current exp and add to calculator" onclick="finalize(${item.id})">Finalize</button>
               </div>
               <div class="roster-player-x-btn">
                 <button class="delete-log-btn" onclick="deleteLog(this)" value="${item.id}">x</button>
@@ -606,7 +605,7 @@ finalize = (id) => {
         backgroundColor: "#FFFFFF"
       }, "fast");
     },
-    error: function(){
+    error: function() {
       $("#endlvl").animate({
         backgroundColor: "#FF0000"
       }, "fast");
