@@ -475,6 +475,7 @@ refreshLogs = () => {
       } else {
         jobImg = "https://maplelegends.com/static/images/rank/all.png";
       }
+      let date = new Date(item.date);
       $("#roster-box-players").append(`
         <div class="roster-player">
             <div class="roster-player-avatar-box">
@@ -492,7 +493,9 @@ refreshLogs = () => {
               </tr>
               <tr>
                 <td class="roster-player-start-time">
-                  <span>${new Date(new Date(item.date).getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}</span>
+                  <span title="${date.getDate()}/${parseInt(date.getMonth()) + 1}/${date.getFullYear()}">
+                    ${new Date(new Date(item.date).getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}
+                  </span>
                 </td>
                 <td class="roster-player-exp"><span class="player-exp-bar">${item.exp}</span></td>
               </tr>
@@ -679,7 +682,7 @@ clearHistory = () => {
   refreshHistory();
 }
 
-copyToHistoryRecordClipBoard = (this) =>{
+copyToHistoryRecordClipBoard = (data) => {
 
 }
 
