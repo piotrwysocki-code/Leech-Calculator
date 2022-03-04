@@ -423,6 +423,8 @@ hr {
   white-space: nowrap;
   word-break: keep-all;
   width: 95%;
+  cursor: pointer;
+
 }
 
 .history-record-footer-info{
@@ -477,8 +479,7 @@ hr {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   width: 95%;
-  min-width: fit-content;
-  max-width: 560px;
+  min-width: 560px;
   min-height: fit-content;
   height: 90px;
 }
@@ -488,17 +489,15 @@ hr {
   margin: 10px;
   display: flex;
 /*  display: grid;
-  grid-template-areas: " a b c ";*/
+  grid-template-areas: " a b c "; */
   flex-direction: row;
   align-items: center;
   justify-content: center;
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   width: 95%;
-  min-width: fit-content;
-  max-width: 560px;
+  min-width: 560px;
   min-height: fit-content;
-  cursor: pointer;
 }
 
 .history-record-item {
@@ -997,7 +996,6 @@ hr {
   }
 
   .roster-player, .history-record-item {
-    min-width: 100%;
   }
 
   .roster-player-avatar-box {

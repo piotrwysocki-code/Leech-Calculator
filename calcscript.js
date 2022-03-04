@@ -410,8 +410,8 @@ refreshHistory = () => {
   if (history.length > 0) {
     history.forEach(item => {
       $("#history-record-box").append(`
-        <div class="history-record-item" title="Copy to clipboard">
-          <div class="history-record-info">
+        <div class="history-record-item">
+          <div class="history-record-info" title="Copy to clipboard">
             <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${formatNum(item.startExp.toFixed(2))}
             - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${formatNum(item.endExp.toFixed(2))}
             <hr class="history-record-hr">
