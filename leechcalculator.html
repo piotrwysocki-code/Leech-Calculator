@@ -3,7 +3,9 @@
 <head>
   <title>Leech Calculator</title>
   <meta charset="utf-8">
-  <meta name="viewport" id="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0">
+
+
+  <meta name="viewport" content="width=500">
   <link rel="icon" href="imgs/meso.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +43,9 @@
     <div id="toolbox">
       <div id="roster-box">
         <div id="roster-box-header">
-          <h3 id="roster-box-title">Exp Log</h3>
+          <h3 id="roster-box-title">Exp Log
+            <img id="export-explog-csv-btn" src="imgs/export.png" title="Export history as CSV file">
+          </h3>
           <div id="search-ign-input-box">
             <img id="loading" src="imgs/hungry.gif">
             <img id="success" src="imgs/success.png">
@@ -94,8 +98,17 @@
           </div>
           <br>
           <div id="rateinputbox">
-            <input id="eph" name="hourly" type="number" placeholder="EPH"></input>
-            <input id="price" name="price" type="number" placeholder="Price /hr"></input>
+            <div id="hourly-rate-box">
+              <input id="eph" name="hourly" type="number" placeholder="EPH"></input>
+              <input id="price" name="price" type="number" placeholder="Price /hr"></input>
+            </div>
+            <div id="perexp-rate-box">
+              <span id="per-exp-input">
+                <label for="perexp">1 meso per</label>
+                <input id="rate" name="perexp" type="number" min="0">
+                <label id="rate-label">exp</label>
+              </span>
+            </div>
           </div>
           <br>
           <div id="player-ign-box">
@@ -103,7 +116,7 @@
             <input type="text" id="player-ign" placeholder="IGN (Optional)">
           </div>
           <br>
-          <button id="calculateBtn" onclick="calculate()"><img id="calculate-img" src="imgs/calculate.png"></button>
+          <button title="Calculate" id="calculateBtn" onclick="calculate()"><img id="calculate-img" src="imgs/calculate.png"></button>
         </div>
         <br>
         <div id="outputbox">
@@ -119,7 +132,10 @@
       </div>
       <div id="history-box">
         <div id="history-box-header">
-          <h3 id="history-box-header-title">History</h3>
+          <h3 id="history-box-header-title">
+            History
+            <img id="export-history-csv-btn" src="imgs/export.png" title="Export history as CSV file">
+          </h3>
           <div id="history-box-header-totals">
             <div class="total-box">
               <img class="total-icon" src="imgs/loss.png">
@@ -135,7 +151,6 @@
             </div>
           </div>
           <div id="history-box-header-btns">
-            <img id="export-csv-btn" src="imgs/export.png" title="Export history as CSV file">
             <button class="clear-btn" onclick="clearHistory()">Clear</button>
           </div>
         </div>

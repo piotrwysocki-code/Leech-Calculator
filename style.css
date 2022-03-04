@@ -1,3 +1,6 @@
+/*TODO:
+*/
+
 html {
   font-family: arial, sans-serif;
   -ms-overflow-style: none;
@@ -63,12 +66,15 @@ body::-webkit-scrollbar-corner {
 
 #calculate-img{
   border-radius: 8px 8px 8px 8px;
-  padding: 3px;
+  transition: all 0.2s ease-in-out;
+  -webkit-box-shadow: 0px 0px 15px 0px #FFFFFF;
+  box-shadow: 0px 0px 0px -8px #FFFFFF;
 }
 
 #calculate-img:hover{
   background-color: rgba(255, 255, 255, 0.1);
-
+  -webkit-box-shadow: 0px 0px 15px 0px #FFFFFF;
+  box-shadow: 0px 0px 15px -5px #FFFFFF;
 }
 
 #eph, #price {
@@ -135,15 +141,25 @@ body::-webkit-scrollbar-corner {
 }
 
 .delete-img{
-  height: 20px;
+  height: 12px;
 }
 
-.delete-log-btn, .delete-record-btn {
+.delete-log-btn {
   border-radius: 25px 25px 25px 25px;
   border: none;
   background: none;
   height: fit-content;
   width: fit-content;
+  margin: 3px;
+}
+
+.delete-record-btn {
+  border-radius: 50%;
+  border: none;
+  background: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 4px;
 }
 
 .delete-log-btn:hover, .delete-record-btn:hover {
@@ -155,10 +171,19 @@ body::-webkit-scrollbar-corner {
 }
 */
 .finalize-btn {
-  background: none;
-  border: none;
+  -webkit-box-shadow: 0px 0px 15px 0px #FFFFFF;
+  box-shadow: 0px 0px 0px -8px #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 8px 8px 8px 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+}
 
+.finalize-btn:hover {
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 15px 0px #FFFFFF;
+  box-shadow: 0px 0px 15px -8px #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #calculateBtn {
@@ -171,10 +196,6 @@ body::-webkit-scrollbar-corner {
   cursor: pointer;
 }
 
-.finalize-btn:hover {
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.1);
-}
 /*
 #calculateBtn:active {
 
@@ -204,14 +225,19 @@ body::-webkit-scrollbar-corner {
   width: 100%;
 }
 
-#export-csv-btn{
-  height: 15px;
-  margin-left: 10px;
+#export-explog-csv-btn{
+  height: 13px;
+  margin-left: 8px;
   margin-right: 10px;
-
 }
 
-#export-csv-btn:hover{
+#export-history-csv-btn{
+  margin-left: 4px;
+  height: 13px;
+  margin-right: 10px;
+}
+
+#export-history-csv-btn:hover, #export-explog-csv-btn:hover{
   cursor: pointer;
 }
 
@@ -220,7 +246,7 @@ body::-webkit-scrollbar-corner {
 }
 
 #finalize-img{
-  height: 50px;
+  height: 30px;
 }
 
 hr {
@@ -249,17 +275,20 @@ hr {
 }
 
 .history-start {
-  background-color: green;
+  color: green;
   border-radius: 20px 20px 20px 20px;
   padding-left: 3px;
   padding-right: 3px;
+  border: 1px solid rgba(0, 255, 0, 0.3);
+
 }
 
 .history-end {
-  background-color: red;
   border-radius: 20px 20px 20px 20px;
   padding-left: 3px;
   padding-right: 3px;
+  color:red;
+  border: 1px solid rgba(255, 0, 0, 0.4);
 }
 
 #job-img {
@@ -295,7 +324,6 @@ hr {
 
 #roster-box, #history-box, #calculator {
   width: 100%;
-  min-width: 385px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -307,6 +335,8 @@ hr {
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 63vh;
+
+
 }
 
 #history-record-box, #roster-box-players {
@@ -314,25 +344,27 @@ hr {
   flex-direction: column-reverse;
   align-items: center;
   justify-content: flex-end;
-  width: 25vw;
+  width: 100%;
   min-height: fit-content;
   min-width: fit-content;
   height: 100%;
+
 }
 
 #calculator {
   grid-area: "c";
   overflow-y: scroll;
+  min-width: fit-content;
 }
 
 #history-box {
   grid-area: "h";
-  min-width: fit-content;
+  min-width: 560px;
 }
 
 #roster-box {
   grid-area: "r";
-  min-width: fit-content;
+  min-width: 560px;
 }
 
 #history-box-header-totals {
@@ -360,13 +392,15 @@ hr {
 }
 
 #history-box-header, #roster-box-header {
-  background-color: rgba(148, 148, 148);
+  background-color: rgba(148, 148, 148, 0.9);
   width: 100%;
   border-radius: 20px 20px 20px 20px;
-  padding: 10px;
+  padding: 6px;
   box-sizing: border-box;
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   min-width: 360px;
   top: 0;
   position: sticky;
@@ -401,14 +435,8 @@ hr {
   width: 25%;
   text-align: left;
   margin-left: 8px;
-  margin-right: 8px;
   white-space: nowrap;
   word-break: keep-all;
-}
-
-.info {
-
-
 }
 
 .record-info {
@@ -425,6 +453,7 @@ hr {
   width: 95%;
   cursor: pointer;
 
+  border-radius: 20px 0px 0px 20px;
 }
 
 .history-record-footer-info{
@@ -452,9 +481,6 @@ hr {
 }
 
 #per-exp-input {
-  border-radius: 20px 20px 20px 20px;
-  padding: 3px;
-  border: 1px solid rgba(255, 255, 255, .3);
   display: flex;
   border-right: none;
   border-left: none;
@@ -479,7 +505,6 @@ hr {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   width: 95%;
-  min-width: 560px;
   min-height: fit-content;
   height: 90px;
 }
@@ -496,13 +521,12 @@ hr {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   width: 95%;
-  min-width: 560px;
   min-height: fit-content;
 }
-
+/*
 .history-record-item {
   padding-right: 5px;
-}
+}*/
 
 .roster-player-avatar {
   /*max-height: 100%;
@@ -569,11 +593,15 @@ hr {
 
 .delete-record-box {
   height: 100%;
+  box-sizing: border-box;
   width: 5%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
+  border-radius: 0px 20px 20px 0px;
+  padding-right: 3px;
+  padding-top: 2px;
+
 }
 
 #roster-player-job-box {
@@ -753,7 +781,7 @@ hr {
   background-color: rgba(148, 148, 148);
 }
 
-#rateinputbox {
+#hourly-rate-box {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -791,6 +819,7 @@ hr {
   border-radius: 5px 5px 5px 5px;
   font-size: 1rem;
   min-width: fit-content;
+  transition: all 0.4s ease-in-out;
 }
 
 #exptable {
@@ -1021,6 +1050,7 @@ hr {
 
   #roster-box, #history-box, #calculator {
     min-height: fit-content;
+    width: 100%;
   }
 
   #roster-box {
@@ -1029,6 +1059,7 @@ hr {
 
   #roster-box-players, #history-record-box {
     width: 80%;
+
   }
 
   .delete-record-box {

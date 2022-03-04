@@ -1,3 +1,6 @@
+/*TODO:
+*/
+
 const lvlUpExp = [];
 const totalexp = [];
 const formulaString = "Formula: (((endLvl totalExp - startLvl totalExp)";
@@ -40,10 +43,11 @@ historyRecord = class {
 }
 
 Player = class {
-  constructor(id, name, date, guild, level, job, exp) {
+  constructor(id, name, date, time, guild, level, job, exp) {
     this.id = id;
     this.name = name;
     this.date = date;
+    this.time = time;
     this.guild = guild;
     this.level = level;
     this.job = job;
@@ -61,16 +65,15 @@ $(document).ready(function() {
     }
   });
 
+  $("#perexp-rate-box").hide();
+
   $(document).tooltip({
     show: { effect: 'slideDown', delay: 1000, duration: 250 }
   });
 
-  $(".history-record-item").click(()=>{
-
-  });
-
   refreshHistory();
   refreshLogs();
+  $(".finalize-btn").attr("title", "Check player's current exp and add data to calculator (Note: Player must enter cash shop to refresh exp)");
 
   if (players.length == 0) {
     $("#search-ign-input").val("srslyguys");
@@ -86,7 +89,7 @@ $(document).ready(function() {
     }
   });
 
-  $("#export-csv-btn").click(() => {
+  $("#export-history-csv-btn").click(() => {
     let dateObj = new Date();
     let csvContent = "data:text/csv;charset=utf-8,";
     //convert array of objects to JSON stringify
@@ -103,18 +106,41 @@ $(document).ready(function() {
       `history_${dateObj.getDate()}-${parseInt(dateObj.getMonth()) + 1}-${dateObj.getFullYear()}.csv`);
     document.body.appendChild(link);
     link.click();
+    link.remove();
+  });
+
+  $("#export-explog-csv-btn").click(() => {
+    let dateObj = new Date();
+    let csvContent = "data:text/csv;charset=utf-8,";
+    //convert array of objects to JSON stringify
+    let temp = JSON.stringify(players);
+    csvContent += "id,name,date,time,guild,level,job,exp\n";
+    //convert the json string to a csv and add to content
+    csvContent += ConvertToCSV(temp);
+    let encodedUri = encodeURI(csvContent);
+    let link = document.createElement("a");
+    //setting encoded URI
+    link.setAttribute("href", encodedUri);
+    //setting a customer file name
+    link.setAttribute("download",
+      `expLog_${dateObj.getDate()}-${parseInt(dateObj.getMonth()) + 1}-${dateObj.getFullYear()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   });
 
   $("#rate-type").click(() => {
     isHourlyRate = !isHourlyRate;
-    $("#total-exp").remove();
+    /*("#total-exp").remove();*/
     if (isHourlyRate) {
-      $("#total-exp").html("");
+    /*$("#total-exp").html("");
       $("#total").html("");
       $("#rateinputbox").html(`
           <input id="eph" name="hourly" type="number" placeholder="EPH"></input>
           <input id="price" name="price" type="number" placeholder="Price /hr"></input>
-      `);
+      `);*/
+      $("#perexp-rate-box").toggle("slow");
+      $("#hourly-rate-box").toggle("slow");
       if (!$("#startpercent").is(':checked') && !$("#endpercent").is(':checked')) {
         $("#formula").text(`
           ${formulaString} - startExp) + endExp) / eph * price
@@ -133,7 +159,7 @@ $(document).ready(function() {
         `);
       }
     } else {
-      $("#total-exp").html("");
+    /*$("#total-exp").html("");
       $("#total").html("");
       $("#rateinputbox").html(`
         <span id="per-exp-input">
@@ -141,7 +167,9 @@ $(document).ready(function() {
           <input id="rate" name="perexp" type="number" min="0">
           <label id="rate-label">exp</label>
         </span>
-      `);
+      `); */
+      $("#hourly-rate-box").toggle("slow");
+      $("#perexp-rate-box").toggle("slow");
       if (!$("#startpercent").is(':checked') && !$("#endpercent").is(':checked')) {
         $("#formula").text(`
           ${formulaString} - startExp) + endExp) / rate
@@ -200,10 +228,14 @@ calculate = () => {
             expGained -= startexp;
             expGained += endexp;
             total = expGained / rate;
+            $("#total").hide();
             $("#total").html(`${formatNum(total.toFixed(2))}`);
             $("#total-exp").remove();
             $("#outputbox").append(`<p id="total-exp"></p>`);
+            $("#total-exp").hide();
             $("#total-exp").html(`Total exp: ${formatNum(expGained.toFixed(2))}`);
+            $("#total").show(200, "linear");
+            $("#total-exp").show(200, "linear");
             let dateObj = new Date();
             let record = new historyRecord(history.length > 0 ? history.at(-1).id + 1 : 0,
               `${dateObj.getDate()}/${parseInt(dateObj.getMonth()) + 1}/${dateObj.getFullYear()}`, //extract the day/month/year from the date object
@@ -300,7 +332,8 @@ searchIgn = () => {
         $("#success").show("fast");
         let dateObj = new Date();
         let p = new Player(players.length > 0 ? players.at(-1).id + 1 : 0,
-          playerData.name, dateObj, playerData.guild, playerData.level, playerData.job, playerData.exp);
+          playerData.name, dateObj, new Date(new Date(dateObj).getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1'),
+         playerData.guild, playerData.level, playerData.job, playerData.exp);
         players.push(p);
         localStorage.setItem("players", JSON.stringify(players));
         refreshLogs();
@@ -370,7 +403,10 @@ showExpTable = (data) => {
 
 deleteLog = (item) => {
   let val = $(item).attr('value');
-  $(item).parent().parent().parent().remove();
+  $(item).parent().parent().parent().hide("slow");
+  setTimeout(()=>{
+    $(item).parent().parent().parent().remove();
+  }, 2000);
   players.forEach(elem => {
     if (elem.id == val) {
       players.splice(players.indexOf(elem), 1);
@@ -383,7 +419,10 @@ deleteLog = (item) => {
 
 deleteRecord = (item) => {
   let val = $(item).attr('value');
-  $(item).parent().parent().remove();
+  $(item).parent().parent().hide("slow");
+  setTimeout(()=>{
+    $(item).parent().parent().remove();
+  }, 2000);
   history.forEach(elem => {
     if (elem.id == val) {
       history.splice(history.indexOf(elem), 1);
@@ -412,9 +451,9 @@ refreshHistory = () => {
       $("#history-record-box").append(`
         <div class="history-record-item">
           <div class="history-record-info" title="Copy to clipboard">
-            <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${formatNum(item.startExp.toFixed(2))}
-            - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${formatNum(item.endExp.toFixed(2))}
-            <hr class="history-record-hr">
+              <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${formatNum(item.startExp.toFixed(2))}
+              - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${formatNum(item.endExp.toFixed(2))}
+              <hr class="history-record-hr">
             <div class="totals">
                 <span class="expGained">Total exp: ${formatNum(item.expGained.toFixed(2))}</span>
                 <span class="mesosTotal" style="${item.type == true ? "color: green;" : "color: red;"}">
@@ -434,7 +473,7 @@ refreshHistory = () => {
           </div>
           <div class="delete-record-box">
             <button class="delete-record-btn" onclick="deleteRecord(this)" value="${item.id}"><img class="delete-img" src="imgs/delete.png"></button>
-            <button type="button" value="${item.id}" onclick(copyToHistoryRecordClipBoard(this)) hidden>
+            <button type="button" value="${item.id}" onclick(copyToHistoryRecordClipBoard(this)) hidden></button>
           </div>
         </div>
         `);
@@ -452,8 +491,6 @@ refreshHistory = () => {
 refreshLogs = () => {
   let avatarUrl = "https://maplelegends.com/api/getavatar?name=";
   let jobImg = "https://maplelegends.com/static/images/rank/";
-/*  let lvlUrl = "https://maplelegends.com/levels?name=";
-  let guildUrl = "https://maplelegends.com/ranking/guildmembers?search=";*/
   $("#roster-box-players").html("");
   if (players.length > 0) {
     let arrLen = players.length;
@@ -476,6 +513,7 @@ refreshLogs = () => {
         jobImg = "https://maplelegends.com/static/images/rank/all.png";
       }
       let date = new Date(item.date);
+
       $("#roster-box-players").append(`
         <div class="roster-player">
             <div class="roster-player-avatar-box">
@@ -502,7 +540,7 @@ refreshLogs = () => {
             </table>
             <div class="roster-player-btn-box">
               <div class="roster-player-finalize-btn">
-                <button class="finalize-btn" title="Check player's current exp and add to calculator" onclick="finalize(${item.id})"><img id="finalize-img" src="imgs/finalize.png"></button>
+                <button class="finalize-btn" onclick="finalize(${item.id})"><img id="finalize-img" src="imgs/finalize.png"></button>
               </div>
               <div class="roster-player-x-btn">
                 <button class="delete-log-btn" onclick="deleteLog(this)" value="${item.id}"><img class="delete-img" src="imgs/delete.png"></button>
@@ -525,13 +563,13 @@ filterTable = () => {
         if (td) {
           value = td.textContent || td.innerText;
           if (value === input || new String(value).valueOf() == new String("Level").valueOf()) {
-            rows[i].style.display = "";
+            $(rows[i]).show();
           } else {
-            rows[i].style.display = "none";
+            $(rows[i]).hide();
           }
         }
       } else {
-        rows[i].style.display = "";
+        $(rows[i]).show();
       }
     }
   }
@@ -577,7 +615,11 @@ finalize = (id) => {
     type: "GET",
     url: `${infoUrl}${player.name}`,
     dataType: "JSON",
+    beforeSend: function() {
+      $("#loading-end").show(1000);
+    },
     success: function(data) {
+      $("#loading-end").hide();
       $("#endlvl").val(data.level);
       $("#endexp").val(parseFloat(data.exp.slice(0, -1)));
       if (!$("#endpercent").is(':checked')) {
@@ -600,6 +642,8 @@ finalize = (id) => {
       }, "fast");
     },
     error: function() {
+      $("#loading-end").hide();
+
       $("#endlvl").animate({
         backgroundColor: "#FF0000"
       }, "fast");
