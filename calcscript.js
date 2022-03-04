@@ -6,7 +6,7 @@ let players = JSON.parse(localStorage.getItem("players")) || [];
 let history = JSON.parse(localStorage.getItem("history")) || [];
 let totalGain = JSON.parse(localStorage.getItem("total-gain")) || 0.00;
 let totalLoss = JSON.parse(localStorage.getItem("total-loss")) || 0.00;
-const infoUrl = "https://maplelegends.com/api/character?name=";
+const infoUrl =  "https://us-central1-maplelegendscorsproxy.cloudfunctions.net/app/playerdata/"/*"https://maplelegends.com/api/character?name=";*/
 const oddJobs = ["Beginner", "Islander"];
 const warriorJobs = ["Hero", "Dark Knight", "Paladin", "Spearman", "Warrior",
   "Fighter", "Page", "Crusader", "White Knight"
@@ -107,7 +107,6 @@ $(document).ready(function() {
 
   $("#rate-type").click(() => {
     isHourlyRate = !isHourlyRate;
-    console.log(isHourlyRate);
     $("#total-exp").remove();
     if (isHourlyRate) {
       $("#total-exp").html("");
@@ -212,7 +211,6 @@ calculate = () => {
               $("#player-ign").val() ? $("#player-ign").val() : null, startlvl,
               startexp, endlvl, endexp, expGained, total, $("#trans-type")[0].checked);
             history.push(record);
-            console.log(history);
             localStorage.setItem('history', JSON.stringify(history));
             refreshHistory();
           } else {
@@ -294,23 +292,18 @@ searchIgn = () => {
     url: `${infoUrl}${ign}`,
     dataType: "JSON",
     beforeSend: function() {
-      /*$("#roster-box-players").append(`<img id="loading" src="imgs/hungry2.gif">`);*/
       $("#loading").show(1000);
     },
     success: function(data) {
-      console.log(data.name);
-      if (typeof data.name !== 'undefined') {
+      let playerData = data;
+      if (typeof playerData.name !== 'undefined') {
         $("#success").show("fast");
         let dateObj = new Date();
-        console.log(dateObj);
         let p = new Player(players.length > 0 ? players.at(-1).id + 1 : 0,
-          data.name, dateObj, data.guild, data.level, data.job, data.exp);
-        console.log(players);
+          playerData.name, dateObj, playerData.guild, playerData.level, playerData.job, playerData.exp);
         players.push(p);
-        console.log(players);
         localStorage.setItem("players", JSON.stringify(players));
         refreshLogs();
-        console.log(players);
         setTimeout(() => {
           $("#success").hide("slow");
         }, 2000)
@@ -440,8 +433,8 @@ refreshHistory = () => {
              </div>
           </div>
           <div class="delete-record-box">
-            <button class="delete-record-btn" onclick="deleteRecord(this)" value="${item.id}">x</button>
-            <button type="button" value="${item.id}" onclick(copyToHistoryRecordClipBoard(this)) hidden> 
+            <button class="delete-record-btn" onclick="deleteRecord(this)" value="${item.id}"><img class="delete-img" src="imgs/delete.png"></button>
+            <button type="button" value="${item.id}" onclick(copyToHistoryRecordClipBoard(this)) hidden>
           </div>
         </div>
         `);
@@ -459,8 +452,8 @@ refreshHistory = () => {
 refreshLogs = () => {
   let avatarUrl = "https://maplelegends.com/api/getavatar?name=";
   let jobImg = "https://maplelegends.com/static/images/rank/";
-  let lvlUrl = "https://maplelegends.com/levels?name=";
-  let guildUrl = "https://maplelegends.com/ranking/guildmembers?search=";
+/*  let lvlUrl = "https://maplelegends.com/levels?name=";
+  let guildUrl = "https://maplelegends.com/ranking/guildmembers?search=";*/
   $("#roster-box-players").html("");
   if (players.length > 0) {
     let arrLen = players.length;
@@ -506,10 +499,10 @@ refreshLogs = () => {
             </table>
             <div class="roster-player-btn-box">
               <div class="roster-player-finalize-btn">
-                <button class="finalize-btn" title="Check player's current exp and add to calculator" onclick="finalize(${item.id})">Finalize</button>
+                <button class="finalize-btn" title="Check player's current exp and add to calculator" onclick="finalize(${item.id})"><img id="finalize-img" src="imgs/finalize.png"></button>
               </div>
               <div class="roster-player-x-btn">
-                <button class="delete-log-btn" onclick="deleteLog(this)" value="${item.id}">x</button>
+                <button class="delete-log-btn" onclick="deleteLog(this)" value="${item.id}"><img class="delete-img" src="imgs/delete.png"></button>
               </div>
            </div>
         </div>
@@ -521,7 +514,6 @@ refreshLogs = () => {
 }
 
 filterTable = () => {
-    console.log("hello");
     let input = $("#searchlvl").val();
     let rows = $('.exptable-row').get();
     for (i = 0; i < rows.length; i++) {
@@ -583,7 +575,6 @@ finalize = (id) => {
     url: `${infoUrl}${player.name}`,
     dataType: "JSON",
     success: function(data) {
-      console.log(data);
       $("#endlvl").val(data.level);
       $("#endexp").val(parseFloat(data.exp.slice(0, -1)));
       if (!$("#endpercent").is(':checked')) {
@@ -671,7 +662,6 @@ clearLogs = () => {
   if (window.localStorage) {
     localStorage.setItem("players", JSON.stringify(players));
   }
-  console.log(players.length);
   refreshLogs();
 }
 
@@ -686,8 +676,11 @@ clearHistory = () => {
     localStorage.setItem("total-loss", JSON.stringify(totalLoss));
     localStorage.setItem("total-gain", JSON.stringify(totalGain));
   }
-  console.log(history.length);
   refreshHistory();
+}
+
+copyToHistoryRecordClipBoard = (this) =>{
+
 }
 
 formatNum = (num) => {

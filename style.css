@@ -61,6 +61,16 @@ body::-webkit-scrollbar-corner {
   background: transparent;
 }
 
+#calculate-img{
+  border-radius: 8px 8px 8px 8px;
+  padding: 3px;
+}
+
+#calculate-img:hover{
+  background-color: rgba(255, 255, 255, 0.1);
+
+}
+
 #eph, #price {
   border-radius: 20px 0px 0px 20px;
   text-align: center;
@@ -73,7 +83,6 @@ body::-webkit-scrollbar-corner {
 #price {
   margin-left: 4px;
   border-radius: 0px 20px 20px 0px;
-
 }
 
 #mushybox {
@@ -125,100 +134,56 @@ body::-webkit-scrollbar-corner {
   padding-left: 10px;
 }
 
+.delete-img{
+  height: 20px;
+}
+
 .delete-log-btn, .delete-record-btn {
-  background-color: rgb(96, 108, 136);
-  /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(96, 108, 136, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(96, 108, 136, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(96, 108, 136, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#606c88', endColorstr='#3f4c6b', GradientType=0);
-  /* IE6-9 */
-  color: white;
-  font-size: 8pt;
-  border: 1px solid gray;
-  border-radius: 20px 20px 20px 20px;
-  margin: 10px;
+  border-radius: 25px 25px 25px 25px;
+  border: none;
+  background: none;
   height: fit-content;
   width: fit-content;
 }
 
 .delete-log-btn:hover, .delete-record-btn:hover {
   cursor: pointer;
-  background: rgb(184, 198, 223);
-  /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(184, 198, 223, 1) 0%, rgba(109, 136, 183, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(184, 198, 223, 1) 0%, rgba(109, 136, 183, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(184, 198, 223, 1) 0%, rgba(109, 136, 183, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8c6df', endColorstr='#6d88b7', GradientType=0);
-  /* IE6-9 */
 }
-
+/*
 .delete-log-btn:active, .delete-record-btn:active {
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3f4c6b+0,3f4c6b+100;Blue+Grey+Flat */
-  background: rgb(63, 76, 107);
-  /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f4c6b', endColorstr='#3f4c6b', GradientType=0);
-  /* IE6-9 */
+
+}
+*/
+.finalize-btn {
+  background: none;
+  border: none;
+  border-radius: 8px 8px 8px 8px;
+
 }
 
-#calculateBtn, .finalize-btn {
-  background: rgb(96, 108, 136);
-  /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(96, 108, 136, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(96, 108, 136, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(96, 108, 136, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#606c88', endColorstr='#3f4c6b', GradientType=0);
-  /* IE6-9 */
-  color: white;
-  padding: 8px;
-  font-size: 12pt;
-  border: 1px solid gray;
+#calculateBtn {
+  background: none;
+  border: none;
   border-radius: 8px 8px 8px 8px;
 }
 
-#calculateBtn:hover, .finalize-btn:hover {
+#calculateBtn:hover {
   cursor: pointer;
-  background: rgb(184, 198, 223);
-  /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(184, 198, 223, 1) 0%, rgba(109, 136, 183, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(184, 198, 223, 1) 0%, rgba(109, 136, 183, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(184, 198, 223, 1) 0%, rgba(109, 136, 183, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8c6df', endColorstr='#6d88b7', GradientType=0);
-  /* IE6-9 */
 }
 
-#calculateBtn:active, .finalize-btn:active {
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3f4c6b+0,3f4c6b+100;Blue+Grey+Flat */
-  background: rgb(63, 76, 107);
-  /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(63, 76, 107, 1) 0%, rgba(63, 76, 107, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f4c6b', endColorstr='#3f4c6b', GradientType=0);
-  /* IE6-9 */
+.finalize-btn:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+/*
+#calculateBtn:active {
+
 }
 
+.finalize-btn:active {
+
+}
+*/
 #bigtitletext {
   letter-spacing: .2rem;
   font-family: 'Fredoka One', cursive;
@@ -252,6 +217,10 @@ body::-webkit-scrollbar-corner {
 
 #formula{
   font-size: 8pt;
+}
+
+#finalize-img{
+  height: 50px;
 }
 
 hr {
@@ -347,7 +316,7 @@ hr {
   justify-content: flex-end;
   width: 25vw;
   min-height: fit-content;
-  min-width: 600px;
+  min-width: fit-content;
   height: 100%;
 }
 
@@ -508,8 +477,10 @@ hr {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   width: 95%;
-  min-width: 95%;
+  min-width: fit-content;
+  max-width: 560px;
   min-height: fit-content;
+  height: 90px;
 }
 
 .history-record-item {
@@ -524,7 +495,8 @@ hr {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   width: 95%;
-  min-width: 95%;
+  min-width: fit-content;
+  max-width: 560px;
   min-height: fit-content;
   cursor: pointer;
 }
@@ -571,6 +543,7 @@ hr {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 2px;
 }
 
 .roster-player-btn-box {
