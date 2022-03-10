@@ -1,6 +1,8 @@
 /*TODO:
 */
 
+
+
 const lvlUpExp = [];
 const totalexp = [];
 const formulaString = "Formula: (((endLvl totalExp - startLvl totalExp)";
@@ -11,7 +13,7 @@ let totalGain = JSON.parse(localStorage.getItem("total-gain")) || 0.00;
 let totalLoss = JSON.parse(localStorage.getItem("total-loss")) || 0.00;
 const infoUrl =  "https://us-central1-maplelegendscorsproxy.cloudfunctions.net/app/playerdata/"/*"https://maplelegends.com/api/character?name=";*/
 const oddJobs = ["Beginner", "Islander"];
-const warriorJobs = ["Hero", "Dark Knight", "Paladin", "Spearman", "Warrior",
+const warriorJobs = ["Hero", "Dark Knight", "Dragon Knight", "Paladin", "Spearman", "Warrior",
   "Fighter", "Page", "Crusader", "White Knight"
 ];
 const pirateJobs = ["Pirate", "Brawler", "Marauder", "Buccaneer", "Gunslinger",
@@ -131,14 +133,7 @@ $(document).ready(function() {
 
   $("#rate-type").click(() => {
     isHourlyRate = !isHourlyRate;
-    /*("#total-exp").remove();*/
     if (isHourlyRate) {
-    /*$("#total-exp").html("");
-      $("#total").html("");
-      $("#rateinputbox").html(`
-          <input id="eph" name="hourly" type="number" placeholder="EPH"></input>
-          <input id="price" name="price" type="number" placeholder="Price /hr"></input>
-      `);*/
       $("#perexp-rate-box").toggle("slow");
       $("#hourly-rate-box").toggle("slow");
       if (!$("#startpercent").is(':checked') && !$("#endpercent").is(':checked')) {
@@ -159,15 +154,6 @@ $(document).ready(function() {
         `);
       }
     } else {
-    /*$("#total-exp").html("");
-      $("#total").html("");
-      $("#rateinputbox").html(`
-        <span id="per-exp-input">
-          <label for="perexp">1 meso per</label>
-          <input id="rate" name="perexp" type="number" min="0">
-          <label id="rate-label">exp</label>
-        </span>
-      `); */
       $("#hourly-rate-box").toggle("slow");
       $("#perexp-rate-box").toggle("slow");
       if (!$("#startpercent").is(':checked') && !$("#endpercent").is(':checked')) {
@@ -218,11 +204,21 @@ calculate = () => {
             expGained = 0;
             if (startexp !== 0) {
               if ($("#startpercent").is(':checked')) {
-                startexp = lvlUpExp[startlvl] * (startexp / 100);
+                if(startexp >= 0 && startexp < 101){
+                  startexp = lvlUpExp[startlvl] * (startexp / 100);
+                }else{
+                  alert("Please check start exp, must be a value 0-100");
+                  return;
+                }
               }
             }
             if ($("#endpercent").is(':checked')) {
-              endexp = lvlUpExp[endlvl] * (endexp / 100);
+              if(endexp >= 0 && endexp < 101){
+                endexp = lvlUpExp[endlvl] * (endexp / 100);
+              }else{
+                alert("Please check end exp, must be a value 0-100");
+                return;
+              }
             }
             expGained = totalexpend - totalexpstart;
             expGained -= startexp;
@@ -237,10 +233,10 @@ calculate = () => {
             $("#total").show(200, "linear");
             $("#total-exp").show(200, "linear");
             let dateObj = new Date();
+            let time = new Date(dateObj.getTime()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             let record = new historyRecord(history.length > 0 ? history.at(-1).id + 1 : 0,
               `${dateObj.getDate()}/${parseInt(dateObj.getMonth()) + 1}/${dateObj.getFullYear()}`, //extract the day/month/year from the date object
-              `${new Date(dateObj.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}`, //extract the time from the date object
-              $("#player-ign").val() ? $("#player-ign").val() : null, startlvl,
+              time, $("#player-ign").val() ? $("#player-ign").val() : null, startlvl,
               startexp, endlvl, endexp, expGained, total, $("#trans-type")[0].checked);
             history.push(record);
             localStorage.setItem('history', JSON.stringify(history));
@@ -331,9 +327,10 @@ searchIgn = () => {
       if (typeof playerData.name !== 'undefined') {
         $("#success").show("fast");
         let dateObj = new Date();
+        let time = new Date(dateObj.getTime()).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         let p = new Player(players.length > 0 ? players.at(-1).id + 1 : 0,
-          playerData.name, dateObj, new Date(new Date(dateObj).getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1'),
-         playerData.guild, playerData.level, playerData.job, playerData.exp);
+          playerData.name, `${dateObj.getDate()}/${parseInt(dateObj.getMonth()) + 1}/${dateObj.getFullYear()}`,
+          time, playerData.guild, playerData.level, playerData.job, playerData.exp);
         players.push(p);
         localStorage.setItem("players", JSON.stringify(players));
         refreshLogs();
@@ -427,9 +424,9 @@ deleteRecord = (item) => {
     if (elem.id == val) {
       history.splice(history.indexOf(elem), 1);
       if (elem.type === true) {
-        totalGain -= elem.total;
+        totalGain = totalGain - elem.total;
       } else {
-        totalLoss -= elem.total;
+        totalLoss = totalLoss - elem.total;
       }
     }
   });
@@ -448,9 +445,10 @@ refreshHistory = () => {
   totalLoss = 0;
   if (history.length > 0) {
     history.forEach(item => {
+      let date = item.date;
       $("#history-record-box").append(`
         <div class="history-record-item">
-          <div class="history-record-info" title="Copy to clipboard">
+          <div class="history-record-info">
               <span class="history-start"> Lvl: ${item.startLvl}</span>, Exp: ${formatNum(item.startExp.toFixed(2))}
               - <span class="history-end">Lvl: ${item.endLvl}</span>, Exp: ${formatNum(item.endExp.toFixed(2))}
               <hr class="history-record-hr">
@@ -464,7 +462,7 @@ refreshHistory = () => {
              <hr class="history-record-hr">
              <div class="history-record-footer-info">
                <div class="date-box">
-                ${item.date} - ${item.time}
+                ${item.date} - ${typeof item.time == 'undefined' ? new Date(date.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1') : item.time}
                </div>
                <div class="ign-box">
                 ${item.playerName !== null ? item.playerName : ""}
@@ -512,8 +510,8 @@ refreshLogs = () => {
       } else {
         jobImg = "https://maplelegends.com/static/images/rank/all.png";
       }
-      let date = new Date(item.date);
 
+      let date = new Date(item.date);
       $("#roster-box-players").append(`
         <div class="roster-player">
             <div class="roster-player-avatar-box">
@@ -532,7 +530,7 @@ refreshLogs = () => {
               <tr>
                 <td class="roster-player-start-time">
                   <span title="${date.getDate()}/${parseInt(date.getMonth()) + 1}/${date.getFullYear()}">
-                    ${new Date(new Date(item.date).getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}
+                    ${typeof item.time == 'undefined' ? new Date(date.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1') : item.time}
                   </span>
                 </td>
                 <td class="roster-player-exp"><span class="player-exp-bar">${item.exp}</span></td>
@@ -724,10 +722,6 @@ clearHistory = () => {
     localStorage.setItem("total-gain", JSON.stringify(totalGain));
   }
   refreshHistory();
-}
-
-copyToHistoryRecordClipBoard = (data) => {
-
 }
 
 formatNum = (num) => {

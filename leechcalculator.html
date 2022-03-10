@@ -15,8 +15,8 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
   <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   <script src="jquery.color.min.js"></script>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <!--  <script async src="https://www.googletagmanager.com/gtag/js?id=G-42680TYBBV"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-42680TYBBV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() {
@@ -52,7 +52,7 @@
             <img id="error" src="imgs/error.png">
             <label for="search-ign-input"></label>
             <input type="text" name="search-ign-input" id="search-ign-input" placeholder="Search IGN">
-            <button id="search-ign-input-btn" onclick="searchIgn()"><img src="imgs/search.svg"></button>
+            <button id="search-ign-input-btn" onclick="searchIgn()"><img id="search-img" src="imgs/search.svg"></button>
             <button class="clear-btn" onclick="clearLogs()">Clear</button>
           </div>
         </div>
@@ -160,8 +160,10 @@
       <br>
     </div>
     <div id="exptablebox">
-      <p id="exptabletitle">EXPTABLE</p>
-      <input id="searchlvl" onkeyup="filterTable()" placeholder="Search level" type="number"></input>
+      <div id="exptable-header">
+        <p id="exptabletitle">EXPTABLE</p>
+        <input id="searchlvl" onkeyup="filterTable()" placeholder="Search level" type="number"></input>
+      </div>
       <div id="tablecontainer">
         <table id="exptable">
         </table>
