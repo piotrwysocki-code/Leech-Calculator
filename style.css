@@ -354,8 +354,6 @@ marquee{
   grid-area: "c";
   overflow-y: scroll;
   min-width: fit-content;
-
-
 }
 
 #history-box {
@@ -815,7 +813,8 @@ marquee{
 }
 
 #meso {
-  height: 50px;
+  height: 30px;
+  margin: 5px;
 }
 
 #exptablesrc {
