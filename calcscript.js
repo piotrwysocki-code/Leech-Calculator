@@ -1,7 +1,7 @@
 /*TODO:
+
+fix first number of time being 0
 */
-
-
 
 const lvlUpExp = [];
 const totalexp = [];

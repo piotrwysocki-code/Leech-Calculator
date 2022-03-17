@@ -354,6 +354,8 @@ marquee{
   grid-area: "c";
   overflow-y: scroll;
   min-width: fit-content;
+
+
 }
 
 #history-box {
@@ -501,6 +503,8 @@ marquee{
   border-bottom: 1px solid gray;
   width: 95%;
   min-height: fit-content;
+  background-color: rgba(50,100,255,0.1);
+
 }
 
 .history-record-item {
@@ -514,6 +518,8 @@ marquee{
   border-bottom: 1px solid gray;
   width: 95%;
   min-height: fit-content;
+  background-color: rgba(50,100,255,0.1);
+
 }
 
 .history-record-item {
@@ -980,7 +986,8 @@ marquee{
     display: none;
   }
 
-  #calculator{
+  #
+  {
     min-height: fit-content;
     max-height: none;
   }
