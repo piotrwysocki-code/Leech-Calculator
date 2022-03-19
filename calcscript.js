@@ -1,5 +1,4 @@
 /*TODO:
-
 fix first number of time being 0
 */
 
@@ -11,7 +10,7 @@ let players = JSON.parse(localStorage.getItem("players")) || [];
 let history = JSON.parse(localStorage.getItem("history")) || [];
 let totalGain = JSON.parse(localStorage.getItem("total-gain")) || 0.00;
 let totalLoss = JSON.parse(localStorage.getItem("total-loss")) || 0.00;
-const infoUrl =  "https://us-central1-maplelegendscorsproxy.cloudfunctions.net/app/playerdata/"/*"https://maplelegends.com/api/character?name=";*/
+const infoUrl =  "https://us-central1-maplelegendscorsproxy.cloudfunctions.net/app/playerdata/";
 const oddJobs = ["Beginner", "Islander"];
 const warriorJobs = ["Hero", "Dark Knight", "Dragon Knight", "Paladin", "Spearman", "Warrior",
   "Fighter", "Page", "Crusader", "White Knight"
@@ -75,7 +74,6 @@ $(document).ready(function() {
 
   refreshHistory();
   refreshLogs();
-  $(".finalize-btn").attr("title", "Check player's current exp and add data to calculator (Note: Player must enter cash shop to refresh exp)");
 
   if (players.length == 0) {
     $("#search-ign-input").val("srslyguys");
@@ -185,7 +183,6 @@ $(document).ready(function() {
   });
 });
 
-/* end of doc.ready */
 calculate = () => {
   let startlvl = parseFloat($("#startlvl").val());
   let startexp = $("#startexp").val() ? parseFloat($("#startexp").val()) : 0;
@@ -273,8 +270,8 @@ calculate = () => {
                   Estimated duration: ${formatNum(duration.toFixed(2))} hrs`);
               let dateObj = new Date();
               let record = new historyRecord(history.length > 0 ? history.at(-1).id + 1 : 0,
-                `${dateObj.getDate()}/${parseInt(dateObj.getMonth()) + 1}/${dateObj.getFullYear()}`, //extract the day/month/year from the date object
-                `${new Date(dateObj.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}`, //extract the time from the date object
+                `${dateObj.getDate()}/${parseInt(dateObj.getMonth()) + 1}/${dateObj.getFullYear()}`,
+                `${new Date(dateObj.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}`,
                 $("#player-ign").val() ? $("#player-ign").val() : null, startlvl,
                 startexp, endlvl, endexp, expGained, total, $("#trans-type")[0].checked);
               $("#player-ign").val("");
@@ -357,6 +354,7 @@ searchIgn = () => {
     },
     complete: function() {
       $("#loading").hide();
+      $(".finalize-btn").attr("title", "Check player's current exp and add data to calculator (Note: Player must enter cash shop to refresh exp)");
     }
   });
 }
@@ -471,7 +469,6 @@ refreshHistory = () => {
           </div>
           <div class="delete-record-box">
             <button class="delete-record-btn" onclick="deleteRecord(this)" value="${item.id}"><img class="delete-img" src="imgs/delete.png"></button>
-            <button type="button" value="${item.id}" onclick(copyToHistoryRecordClipBoard(this)) hidden></button>
           </div>
         </div>
         `);
@@ -512,6 +509,7 @@ refreshLogs = () => {
       }
 
       let date = new Date(item.date);
+
       $("#roster-box-players").append(`
         <div class="roster-player">
             <div class="roster-player-avatar-box">
@@ -553,30 +551,27 @@ refreshLogs = () => {
 }
 
 filterTable = () => {
-    let input = $("#searchlvl").val();
-    let rows = $('.exptable-row').get();
-    for (i = 0; i < rows.length; i++) {
-      td = rows[i].getElementsByClassName('exptable-td')[0];
-      if (input) {
-        if (td) {
-          value = td.textContent || td.innerText;
-          if (value === input || new String(value).valueOf() == new String("Level").valueOf()) {
-            $(rows[i]).show();
-          } else {
-            $(rows[i]).hide();
-          }
+  let input = $("#searchlvl").val();
+  let rows = $('.exptable-row').get();
+  for (i = 0; i < rows.length; i++) {
+    td = rows[i].getElementsByClassName('exptable-td')[0];
+    if (input) {
+      if (td) {
+        value = td.textContent || td.innerText;
+        if (value === input || new String(value).valueOf() == new String("Level").valueOf()) {
+          $(rows[i]).show();
+        } else {
+          $(rows[i]).hide();
         }
-      } else {
-        $(rows[i]).show();
       }
+    } else {
+      $(rows[i]).show();
     }
   }
-
-  !$("#startpercent").is(':checked') && !$("#endpercent").is(':checked')
+}
 
 finalize = (id) => {
   let player = {};
-
   players.forEach(elem => {
     if (elem.id == id) {
       player = elem;
@@ -677,7 +672,6 @@ checkFields = () => {
       `);
     } else {
       $("#formula").text(`
-
         ${formulaString} - expToLvl[startLvl] * (startPct/100)) + endExp) / rate
       `);
     }
