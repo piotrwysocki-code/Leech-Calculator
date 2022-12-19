@@ -269,7 +269,7 @@ calculate = () => {
                 `${new Date(dateObj.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1')}`,
                 $("#player-ign").val() ? $("#player-ign").val() : null, startlvl,
                 startexp, endlvl, endexp, expGained, total, $("#trans-type")[0].checked);
-              $("#player-ign").val("");
+              //$("#player-ign").val("");
               history.push(record);
               localStorage.setItem('history', JSON.stringify(history));
               refreshHistory();
@@ -416,9 +416,17 @@ deleteRecord = (item) => {
     if (elem.id == val) {
       history.splice(history.indexOf(elem), 1);
       if (elem.type === true) {
-        totalGain = totalGain - elem.total;
+        if(totalGain - elem.total <= 0){
+          totalGain = 0;
+        }else{
+          totalGain -= elem.total;
+        }
       } else {
-        totalLoss = totalLoss - elem.total;
+        if(totalLoss - elem.total <= 0){
+          totalLoss = 0;
+        }else{
+          totalLoss -= elem.total;
+        }
       }
     }
   });
