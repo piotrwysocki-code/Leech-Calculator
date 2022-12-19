@@ -1,7 +1,3 @@
-/*TODO:
-fix first number of time being 0
-*/
-
 const lvlUpExp = [];
 const totalexp = [];
 const formulaString = "Formula: (((endLvl totalExp - startLvl totalExp)";
@@ -362,7 +358,6 @@ showExpTable = (data) => {
   let expTable = []
   let values = "";
   let lvls = [];
-  let count = 0;
   for (i = 0; i < data.length; i++) {
     if (data[i] === "\r" || data[i] === "\n" || data[i] === "") {
       expTable[i] = values;
@@ -507,8 +502,6 @@ refreshLogs = () => {
         jobImg = "https://maplelegends.com/static/images/rank/all.png";
       }
 
-      let date = new Date(item.date);
-
       $("#roster-box-players").append(`
         <div class="roster-player">
             <div class="roster-player-avatar-box">
@@ -526,8 +519,8 @@ refreshLogs = () => {
               </tr>
               <tr>
                 <td class="roster-player-start-time">
-                  <span title="${date.getDate()}/${parseInt(date.getMonth()) + 1}/${date.getFullYear()}">
-                    ${typeof item.time == 'undefined' ? new Date(date.getTime()).toLocaleTimeString().replace(/(.*)\D\d+/, '$1') : item.time}
+                  <span title="${item.date}">
+                    ${typeof item.time == 'undefined' ? "N/A" : item.time}
                   </span>
                 </td>
                 <td class="roster-player-exp"><span class="player-exp-bar">${item.exp}</span></td>
