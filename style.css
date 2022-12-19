@@ -793,7 +793,7 @@ marquee{
   flex-direction: column;
   align-items: center;
   height: 90vh;
-  overflow-x: hidden;*/
+  overflow-x: hidden;
 }
 
 .exptable-td {
@@ -985,8 +985,7 @@ marquee{
     display: none;
   }
 
-  #
-  {
+  #calculator{
     min-height: fit-content;
     max-height: none;
   }

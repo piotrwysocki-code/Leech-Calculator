@@ -24,8 +24,7 @@ const bowmanJobs = ["Bowman", "Hunter", "Ranger", "Bowmaster", "Crossbowman",
 const thiefJobs = ["Thief", "Assassin", "Bandit", "Hermit", "Chief Bandit", "Night Lord", "Shadower"];
 const magicianJobs = ["Bishop", "Archmage (Ice/Lightning)", "Archmage (Fire/Poison)",
   "Cleric", "Priest", "Wizard (Fire/Poison)", "Wizard (Ice/Lightning)",
-  "Mage (Fire/Poison)", "Mage (Ice/Lightning)"
-];
+  "Mage (Fire/Poison)", "Mage (Ice/Lightning)", "Magician"];
 
 historyRecord = class {
   constructor(id, date, time, playerName, startLvl, startExp, endLvl, endExp, expGained, total, type) {
