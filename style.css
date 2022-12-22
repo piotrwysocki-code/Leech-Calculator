@@ -24,15 +24,17 @@ body {
 }
 
 *::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0);
+
 }
 *::-webkit-scrollbar-button {
   width: 0px;
   height: 0px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #e1e1e1;
+  background: #74797d;
   border: 0px none #ffffff;
   border-radius: 50px;
 }
@@ -43,7 +45,7 @@ body {
   background: #7ce7f7;
 }
 *::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(255, 255, 255, 0);
   border: 0px none #ffffff;
   border-radius: 50px;
 }
@@ -113,7 +115,8 @@ body {
 }
 
 #maincontainer {
-  width: 100%;
+  /*width: 100%;*/
+  max-width: 100%;
   height: auto;
   text-align: center;
   display:flex;
@@ -316,14 +319,15 @@ marquee{
 }
 
 #toolbox {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  display: flex;
+  flex-direction: row;
   width: 100%;
   box-sizing: border-box;
   padding-left: 10px;
   padding-right: 10px;
   min-height: 64vh;
   margin-top: 30px;
+  overflow-x: scroll;
 }
 
 #roster-box, #history-box, #calculator {
@@ -337,6 +341,7 @@ marquee{
   max-height: 65vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  min-width: fit-content;
 }
 
 #history-record-box, #roster-box-players {
@@ -351,18 +356,15 @@ marquee{
 }
 
 #calculator {
-  grid-area: "c";
   overflow-y: scroll;
   min-width: fit-content;
 }
 
 #history-box {
-  grid-area: "h";
   min-width: 560px;
 }
 
 #roster-box {
-  grid-area: "r";
   min-width: 560px;
 }
 

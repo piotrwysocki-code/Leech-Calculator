@@ -20,7 +20,8 @@ const bowmanJobs = ["Bowman", "Hunter", "Ranger", "Bowmaster", "Crossbowman",
 const thiefJobs = ["Thief", "Assassin", "Bandit", "Hermit", "Chief Bandit", "Night Lord", "Shadower"];
 const magicianJobs = ["Bishop", "Archmage (Ice/Lightning)", "Archmage (Fire/Poison)",
   "Cleric", "Priest", "Wizard (Fire/Poison)", "Wizard (Ice/Lightning)",
-  "Mage (Fire/Poison)", "Mage (Ice/Lightning)", "Magician"];
+  "Mage (Fire/Poison)", "Mage (Ice/Lightning)", "Magician"
+];
 
 historyRecord = class {
   constructor(id, date, time, playerName, startLvl, startExp, endLvl, endExp, expGained, total, type) {
@@ -199,7 +200,7 @@ calculate = () => {
                 if(startexp >= 0 && startexp < 101){
                   startexp = lvlUpExp[startlvl] * (startexp / 100);
                 }else{
-                  alert("Please check start exp, must be a value 0-100");
+                  alert("Please check start percentage, must be a value 0-100");
                   return;
                 }
               }
@@ -208,7 +209,7 @@ calculate = () => {
               if(endexp >= 0 && endexp < 101){
                 endexp = lvlUpExp[endlvl] * (endexp / 100);
               }else{
-                alert("Please check end exp, must be a value 0-100");
+                alert("Please check finish percentage, must be a value 0-100");
                 return;
               }
             }
@@ -349,7 +350,6 @@ searchIgn = () => {
     },
     complete: function() {
       $("#loading").hide();
-      $(".finalize-btn").attr("title", "Check player's current exp and add data to calculator (Note: Player must enter cash shop to refresh exp)");
     }
   });
 }
@@ -545,6 +545,8 @@ refreshLogs = () => {
         </div>
         `);
     });
+
+    $(".finalize-btn").attr("title", "Check buyer's current EXP and add data to calculator. Buyer can enter cash shop or change channel to refresh EXP");
   } else {
     $("#roster-box-players").html("");
   }
